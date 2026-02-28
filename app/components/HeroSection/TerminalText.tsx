@@ -37,9 +37,9 @@ export default function TerminalText() {
   ];
 
   return (
-    <div className="absolute top-20 left-1 z-0 w-full min-h-43 max-w-xs  border border-border/10 backdrop-blur-2xl">
+    <div className="absolute top-10 left-[0px] z-0 w-full max-w-[10rem]  border border-border/20 backdrop-blur-2xl">
       {/* Top Bar */}
-      <div className="flex flex-col gap-y-2 border-b border-border/10 p-4">
+      <div className="flex flex-col gap-y-2 border-b border-border/20 py-1 px-2">
         <div className="flex flex-row gap-x-2">
           <div className="h-2 w-2 rounded-full opacity-10 bg-red-500"></div>
           <div className="h-2 w-2 rounded-full opacity-10 bg-yellow-500"></div>
@@ -48,7 +48,7 @@ export default function TerminalText() {
       </div>
 
       {/* Terminal Body */}
-      <pre className="p-4 overflow-auto text-sm font-mono text-primary/40">
+      <pre className="px-2 py-2 overflow-auto text-[10px] font-mono text-primary/40">
         <code ref={containerRef} className="grid gap-y-1">
           {terminalLines.map((text, index) => (
             <p key={index} data-text={text}></p>

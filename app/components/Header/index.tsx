@@ -22,37 +22,48 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <header className="max-w-7xl flex items-end justify-between  px-2 mx-auto w-full py-6">
-      <div className="flex gap-6">
-        <div className="px-2 flex items-center gap-2 border font-normal text-primary border-primary rounded-[0.25rem] w-max">
-          {time} <IconClock />
+    <header className="fixed top-0 z-50 w-full ">
+      <div className="flex items-end justify-between  px-2 py-6 w-full h-full max-w-7xl mx-auto">
+        <div className="flex gap-6">
+          <div className="px-2 flex items-center gap-2 border font-normal text-primary border-primary rounded-[0.25rem] w-max">
+            {time} <IconClock />
+          </div>
+          <div className="flex gap-2 items-end justify-end leading-none">
+            <UserIcon />
+            <span className="text-primary text-base">
+              Hi, I&apos;m Niranjan...
+            </span>
+          </div>
         </div>
-        <div className="flex gap-2 items-end justify-end leading-none">
-          <UserIcon />
-          <span className="text-primary text-base">
-            Hi, I&apos;m Niranjan...
-          </span>
-        </div>
-      </div>
 
-      <nav className="absolute left-1/2 -translate-x-1/2 uppercase flex gap-10 items-end">
-        <Link className="active:text-primary text-base leading-none" href={"/"}>
-          Home
+        <nav className="absolute left-1/2 -translate-x-1/2 uppercase flex gap-10 items-end">
+          <Link
+            className="active:text-primary text-base leading-none"
+            href={"/"}
+          >
+            Home
+          </Link>
+          <Link
+            className="active:text-primary text-base leading-none"
+            href={"#"}
+          >
+            Projects
+          </Link>
+          <Link
+            className="active:text-primary text-base leading-none"
+            href={"#"}
+          >
+            About
+          </Link>
+        </nav>
+        <Link
+          href={"#"}
+          className="text-primary flex gap-2 items-end  leading-none text-base"
+        >
+          <TelePhone />{" "}
+          <span className="leading-none block translate-y-[2px]">TALK</span>
         </Link>
-        <Link className="active:text-primary text-base leading-none" href={"#"}>
-          Projects
-        </Link>
-        <Link className="active:text-primary text-base leading-none" href={"#"}>
-          About
-        </Link>
-      </nav>
-      <Link
-        href={"#"}
-        className="text-primary flex gap-2 items-end  leading-none text-base"
-      >
-        <TelePhone />{" "}
-        <span className="leading-none block translate-y-[2px]">TALK</span>
-      </Link>
+      </div>
     </header>
   );
 }
