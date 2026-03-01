@@ -9,7 +9,7 @@ export default function page() {
     <div className="">
       <HeroSection />
       <BentoGrid />
-      <GlassShowcase />
+      {/* <GlassShowcase /> */}
       <div className="min-h-screen"></div>
       <DoubleLineGridOverlay />
     </div>
