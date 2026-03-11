@@ -2,6 +2,15 @@ import React from "react";
 
 import { Marquee } from "@/components/ui/marquee";
 import * as StackIcons from "./StackIcons";
+import Image from "next/image";
+
+const GsapIcon = () => (
+  <img
+    src={"/assets/gif/gsap-logo.gif"}
+    alt="GSAP"
+    className="w-full h-full object-cover"
+  />
+);
 
 const coreStack = [
   StackIcons.ReactIcon,
@@ -10,6 +19,7 @@ const coreStack = [
   StackIcons.TsIcon,
   StackIcons.TailwindIcon,
   StackIcons.MotionIcon,
+  GsapIcon,
   StackIcons.ExpressIcon,
   StackIcons.PostgreSqlIcon,
   StackIcons.MongoDBIcon,
@@ -26,12 +36,14 @@ const coreStack = [
 ];
 export default function FirstRow() {
   return (
-    <div className=" grid grid-cols-6 h-full">
-      <div className=" p-5  flex flex-col">
+    <div className=" grid grid-cols-6 h-full ">
+      <div className=" p-5  flex flex-col justify-center">
         <span className="font-semibold text-xl text-primary">Core Stack</span>
         <span className="text-sm">Built for scale.</span>
       </div>
-      <div className="col-span-5 p-5 flex items-center">
+      <div className=" col-span-5 p-5 flex items-center relative overflow-hidden">
+        <div className="absolute top-1 left-0 h-full w-40 bg-linear-to-r from-[#020202] via-[#020202]/70 to-black/0 z-50"></div>
+        <div className="absolute top-0 right-0 h-full w-40 bg-linear-to-l from-[#090909] via-[#090909]/70 to-black/0 z-50"></div>
         <Marquee pauseOnHover className="[--duration:60s]">
           {coreStack.map((Icon, index) => (
             <IconBox key={index}>
@@ -40,9 +52,6 @@ export default function FirstRow() {
           ))}
         </Marquee>
       </div>
-      <IconBox>
-        <StackIcons.DockerIcon />
-      </IconBox>
     </div>
   );
 }
