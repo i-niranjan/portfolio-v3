@@ -22,13 +22,13 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <header className="fixed top-0 z-50 w-full ">
+    <header className="fixed top-0 z-999  w-full ">
       <div className="flex items-end justify-between  px-2 py-6 w-full h-full max-w-7xl mx-auto">
         <div className="flex gap-6">
-          <div className="px-2 flex items-center gap-2 border font-normal text-primary border-primary rounded-[0.25rem] w-max">
+          <div className="px-2 flex backdrop-blur-md z-50 relative items-center gap-2 border font-normal text-primary border-primary rounded-[0.25rem] w-max">
             {time} <IconClock />
           </div>
-          <div className="flex gap-2 items-end justify-end leading-none">
+          <div className="flex gap-2 items-end justify-end leading-none backdrop-blur-md rounded-md">
             <UserIcon />
             <span className="text-primary text-base">
               Hi, I&apos;m Niranjan...
@@ -36,7 +36,7 @@ export default function Header() {
           </div>
         </div>
 
-        <nav className="absolute left-1/2 -translate-x-1/2 uppercase flex gap-10 items-end">
+        <nav className="absolute left-1/2 -translate-x-1/2 uppercase flex gap-10 items-end backdrop-blur-md px-3 py-2 rounded-md">
           <Link
             className="active:text-primary text-base leading-none"
             href={"/"}
