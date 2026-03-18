@@ -23,6 +23,7 @@ export default function Header() {
   }, []);
   return (
     <header className="fixed top-0 z-999  w-full ">
+      <div className="absolute top-0 left-0 w-full  h-50 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent"></div>{" "}
       <div className="flex items-end justify-between  px-2 py-6 w-full h-full max-w-7xl mx-auto">
         <div className="flex gap-6">
           <div className="px-2 flex backdrop-blur-md z-50 relative items-center gap-2 border font-normal text-primary border-primary rounded-[0.25rem] w-max">
@@ -45,7 +46,7 @@ export default function Header() {
           </Link>
           <Link
             className="active:text-primary text-base leading-none"
-            href={"#"}
+            href={"/projects"}
           >
             Projects
           </Link>
@@ -58,10 +59,10 @@ export default function Header() {
         </nav>
         <Link
           href={"#"}
-          className="text-primary flex gap-2 items-end  leading-none text-base"
+          className="text-primary flex gap-2 z-10 items-center  leading-none text-base"
         >
           <TelePhone />{" "}
-          <span className="leading-none block translate-y-[2px]">TALK</span>
+          <span className="leading-none block translate-y-[1px]">TALK</span>
         </Link>
       </div>
     </header>
