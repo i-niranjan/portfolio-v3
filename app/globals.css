@@ -196,4 +196,13 @@
       transparent 160px
     );
   }
+
+  .hero-grain {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.025)),
+      radial-gradient(rgba(255, 255, 255, 0.12) 0.6px, transparent 0.6px);
+    background-size: auto, 16px 16px;
+    mix-blend-mode: soft-light;
+    mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+  }
 }
