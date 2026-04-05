@@ -31,7 +31,7 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
     projects.find((project) => project.slug === expandedSlug) ?? null;
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full relative">
       <div
         className="pointer-events-none fixed inset-0 z-10 bg-black transition-opacity duration-500 ease-in-out"
         style={{ opacity: isAnyHovered ? 0.55 : 0 }}

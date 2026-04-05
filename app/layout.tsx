@@ -3,7 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import "lenis/dist/lenis.css";
 import "@/css/glass.css";
+import LenisProvider from "@/app/components/lenis-provider";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -22,11 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={` ${inter.variable} antialiased  relative`}>
-        <Header />
+        <LenisProvider>
+          <Header />
 
-        <main>{children}</main>
+          <main>{children}</main>
 
-        <Footer />
+          <Footer />
+        </LenisProvider>
       </body>
     </html>
   );

@@ -1,10 +1,11 @@
-import { IconX } from "@tabler/icons-react";
+import { IconArrowUpRight, IconX } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ProjectMeta } from "./types";
-
+import { DitherShader } from "@/components/ui/dither-shader"; // adjust path
+import { useRouter } from "next/navigation";
 interface ExpandedOverlayProps {
   project: ProjectMeta;
   onClose: () => void;
@@ -32,7 +33,13 @@ function WordFadeText({ text }: { text: string }) {
   );
 }
 
-function RightFrame({ project }: { project: ProjectMeta }) {
+function RightFrame({
+  project,
+  isClosing,
+}: {
+  project: ProjectMeta;
+  isClosing: boolean;
+}) {
   const frameRef = useRef<HTMLDivElement>(null);
   const tagRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
@@ -40,38 +47,44 @@ function RightFrame({ project }: { project: ProjectMeta }) {
   const pos = useRef({ x: 0, y: 0 });
   const [tagVisible, setTagVisible] = useState(false);
   const [settled, setSettled] = useState(false);
+  const [showReal, setShowReal] = useState(false);
+
+  // When closing starts, dither reclaims the image immediately
+  useEffect(() => {
+    if (isClosing) {
+      setShowReal(false);
+      setTagVisible(false);
+    }
+  }, [isClosing]);
+
+  const handleMouseMove = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const rect = frameRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      mouse.current = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+      };
+    },
+    [],
+  );
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => setSettled(true), 80);
-    return () => window.clearTimeout(timeoutId);
-  }, []);
-
-  const handleMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = frameRef.current?.getBoundingClientRect();
-    if (!rect) {
-      return;
-    }
-
-    mouse.current = {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    };
+    const t = window.setTimeout(() => setSettled(true), 80);
+    return () => window.clearTimeout(t);
   }, []);
 
   useEffect(() => {
     const tick = () => {
       pos.current.x += (mouse.current.x - pos.current.x) * 0.12;
       pos.current.y += (mouse.current.y - pos.current.y) * 0.12;
-
       if (tagRef.current) {
         const halfWidth = tagRef.current.offsetWidth / 2;
         const halfHeight = tagRef.current.offsetHeight / 2;
         tagRef.current.style.transform = `translate(${pos.current.x - halfWidth}px, ${pos.current.y - halfHeight}px)`;
       }
-
       rafRef.current = requestAnimationFrame(tick);
     };
-
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
@@ -81,28 +94,54 @@ function RightFrame({ project }: { project: ProjectMeta }) {
       <div
         ref={frameRef}
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setTagVisible(true)}
-        onMouseLeave={() => setTagVisible(false)}
+        onMouseEnter={() => {
+          if (isClosing) return;
+          setTagVisible(true);
+          setShowReal(true);
+        }}
+        onMouseLeave={() => {
+          setTagVisible(false);
+          setShowReal(false);
+        }}
         className="glass-card relative aspect-video w-full cursor-none overflow-hidden rounded-[2px]"
       >
-        <Image
-          fill
+        <DitherShader
           src={project.coverImage}
-          alt={project.title}
-          className="object-cover"
-          style={{
-            transform: settled ? "scale(1)" : "scale(1.05)",
-            transition: "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)",
-          }}
+          ditherMode="noise"
+          colorMode="original"
+          primaryColor="#000000"
+          secondaryColor="#9b6dff"
+          gridSize={2}
+          brightness={-0.1}
+          contrast={1.15}
+          objectFit="cover"
+          animated={true}
+          className="absolute inset-0 h-full w-full"
         />
+
+        <div
+          className="absolute inset-0"
+          style={{
+            opacity: showReal ? 1 : 0,
+            transition: "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          <Image
+            fill
+            src={project.coverImage}
+            alt={project.title}
+            className="object-cover"
+            style={{
+              transform: settled ? "scale(1)" : "scale(1.05)",
+              transition: "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          />
+        </div>
 
         <div
           ref={tagRef}
           className="pointer-events-none absolute left-0 top-0 z-10 whitespace-nowrap rounded-full bg-white px-[14px] py-[6px] font-commit text-[10px] uppercase tracking-[0.12em] text-black transition-opacity duration-200"
-          style={{
-            opacity: tagVisible ? 1 : 0,
-            willChange: "transform",
-          }}
+          style={{ opacity: tagVisible ? 1 : 0, willChange: "transform" }}
         >
           View -&gt;
         </div>
@@ -113,11 +152,10 @@ function RightFrame({ project }: { project: ProjectMeta }) {
           <p className="mb-1 text-xs font-medium tracking-[0.01em] text-white/55">
             {project.title}
           </p>
-          <p className="font-commit text-[11px] tracking-[0.08em] text-white/20">
-            {project.client} / {project.year}
+          <p className="font-commit text-[11px] tracking-[0.08em] text-white">
+            {project.year}
           </p>
         </div>
-
         <div className="flex flex-wrap justify-end gap-1.5">
           {project.tags.map((tag) => (
             <span
@@ -134,32 +172,59 @@ function RightFrame({ project }: { project: ProjectMeta }) {
 }
 
 export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
+  const [closing, setClosing] = useState(false);
+  const router = useRouter();
+  const handleClose = useCallback(() => {
+    if (closing) return;
+    setClosing(true);
+    // Beat 1: dither reclaims (0–400ms)
+    // Beat 2: modal exits (400–750ms)
+    setTimeout(onClose, 750);
+  }, [closing, onClose]);
+
+  // Esc key
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [handleClose]);
+
   return createPortal(
     <>
+      {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.45 }}
+        animate={{ opacity: closing ? 0 : 1 }}
+        transition={{ duration: closing ? 0.35 : 0.45, ease: "easeInOut" }}
         className="fixed inset-0 z-[9998]"
-        style={{ backdropFilter: "blur(22px) brightness(0.22)" }}
-        onClick={onClose}
+        style={{ backdropFilter: "blur(8px) grayscale(100%) brightness(0.6)" }}
+        onClick={handleClose}
       />
 
+      {/* Modal */}
       <motion.div
         className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
         <motion.div
-          className="glass-frosted pointer-events-auto relative mx-8 flex min-h-[480px] w-full max-w-[960px] items-center gap-16 overflow-hidden rounded-[4px] px-10 py-10"
-          style={{ background: "rgba(255,255,255,0.03)" }}
+          className="glass-frosted pointer-events-auto bg-black/90 backdrop-blur-2xl relative mx-8 flex min-h-[480px] w-full max-w-[960px] items-center gap-16 overflow-hidden rounded-[4px] px-10 py-10"
           initial={{ opacity: 0, y: 12, scale: 0.985 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 8, scale: 0.99 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          animate={{
+            opacity: closing ? 0 : 1,
+            y: closing ? 16 : 0,
+            scale: closing ? 0.97 : 1,
+            filter: closing ? "blur(6px)" : "blur(0px)",
+          }}
+          transition={{
+            duration: closing ? 0.35 : 0.5,
+            // Exit starts after dither has had 400ms to reclaim
+            delay: closing ? 0.4 : 0,
+            ease: closing ? [0.4, 0, 1, 1] : [0.22, 1, 0.36, 1],
+          }}
         >
           <div className="relative z-[1] flex min-w-0 flex-1 flex-col gap-6">
             <motion.div
@@ -188,26 +253,71 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
 
             <WordFadeText text={project.description} />
 
-            <motion.a
-              href={`/projects/case-studies/${project.slug}`}
+            <motion.button
+              onClick={() =>
+                router.push(`/projects/case-studies/${project.slug}`)
+              }
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.85, duration: 0.35, ease: "easeOut" }}
-              className="glass-card inline-flex self-start gap-3 overflow-hidden rounded-[2px] px-[18px] py-[10px] text-[11px] font-semibold uppercase tracking-[0.14em] text-white/85 no-underline transition-colors duration-200 hover:bg-white/9"
+              whileHover="hovered"
+              className="glass-card group cursor-pointer relative flex items-center w-max gap-3 overflow-hidden rounded-[2px] px-[18px] py-[10px] text-xs font-semibold uppercase tracking-[0.14em] text-white/85 no-underline"
               style={{ background: "rgba(255,255,255,0.05)" }}
             >
-              Read Case Study
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
+              {/* Purple shimmer sweep on hover */}
+              <motion.span
+                className="pointer-events-none absolute inset-0"
+                variants={{
+                  hovered: {
+                    background: [
+                      "linear-gradient(90deg, transparent 0%, rgba(155,109,255,0.08) 50%, transparent 100%)",
+                      "linear-gradient(90deg, transparent 100%, rgba(155,109,255,0.08) 150%, transparent 200%)",
+                    ],
+                    x: ["-100%", "100%"],
+                    transition: { duration: 0.55, ease: "easeInOut" },
+                  },
+                }}
+              />
+
+              <motion.span
+                variants={{
+                  hovered: { x: 2, color: "rgba(255,255,255,1)" },
+                }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="relative z-10"
               >
-                <path d="M2 10L10 2M10 2H4M10 2v6" />
-              </svg>
-            </motion.a>
+                Read Case Study
+              </motion.span>
+
+              {/* Arrow shifts diagonally and brightens */}
+              <motion.span
+                className="relative z-10"
+                variants={{
+                  hovered: {
+                    x: 3,
+                    y: -3,
+                    color: "#9b6dff",
+                  },
+                }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+              >
+                <IconArrowUpRight size={14} />
+              </motion.span>
+
+              {/* Bottom border pulse — draws in from left on hover */}
+              <motion.span
+                className="pointer-events-none absolute bottom-0 left-0 h-px bg-[#9b6dff]"
+                initial={{ scaleX: 0, opacity: 0 }}
+                variants={{
+                  hovered: {
+                    scaleX: 1,
+                    opacity: 0.6,
+                    transition: { duration: 0.3, ease: "easeOut" },
+                  },
+                }}
+                style={{ transformOrigin: "left", width: "100%" }}
+              />
+            </motion.button>
           </div>
 
           <motion.div
@@ -220,21 +330,24 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
               ease: [0.22, 1, 0.36, 1],
             }}
           >
-            <RightFrame project={project} />
+            <RightFrame project={project} isClosing={closing} />
           </motion.div>
         </motion.div>
 
-        <motion.button
-          type="button"
-          onClick={onClose}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="glass-pill pointer-events-auto absolute right-8 top-8 flex items-center gap-2 rounded-full bg-white/4 px-[14px] py-[6px] text-[11px] uppercase tracking-[0.12em] text-white/30 transition-colors duration-200 hover:bg-white/8 hover:text-white/75"
-        >
-          <IconX size={14} stroke={1.5} />
-          Esc
-        </motion.button>
+        {/* Close button */}
+        <div className="absolute top-8 right-8">
+          <motion.button
+            type="button"
+            onClick={handleClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: closing ? 0 : 1 }}
+            transition={{ delay: closing ? 0 : 0.6, duration: 0.2 }}
+            className="glass-pill pointer-events-auto flex items-center gap-2 rounded-full bg-white/4 px-[14px] py-[6px] text-[11px] uppercase tracking-[0.12em] text-white/30 transition-colors duration-200 hover:bg-white/8 hover:text-white/75"
+          >
+            <IconX size={14} stroke={1.5} />
+            Esc
+          </motion.button>
+        </div>
       </motion.div>
     </>,
     document.body,

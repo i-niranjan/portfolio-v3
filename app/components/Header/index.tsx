@@ -44,17 +44,18 @@ export default function Header() {
           >
             Home
           </Link>
+
+          <Link
+            className="active:text-primary text-base leading-none"
+            href={"/#about"}
+          >
+            About
+          </Link>
           <Link
             className="active:text-primary text-base leading-none"
             href={"/projects"}
           >
-            Projects
-          </Link>
-          <Link
-            className="active:text-primary text-base leading-none"
-            href={"#"}
-          >
-            About
+            Work
           </Link>
         </nav>
         <Link
