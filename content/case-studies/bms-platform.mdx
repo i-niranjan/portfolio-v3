@@ -1,0 +1,75 @@
+export const metadata = {
+  slug: "bms-platform",
+  order: 1,
+  title: "BMS Platform",
+  subtitle:
+    "Reimagining how enterprise teams interact with infrastructure.",
+  description:
+    "A comprehensive building management system with real-time monitoring, analytics and smart automation built for enterprise scale.",
+  client: "BuildCore",
+  year: "2025",
+  role: "Product Design · UX / UI",
+  tags: ["Enterprise", "UX / UI", "Dashboard"],
+  heroImage: "/projects/bms_2.png",
+  coverImage: "/projects/bms_2.png",
+  stats: [
+    { label: "Reduction in task time", value: "—62%" },
+    { label: "User satisfaction", value: "94%" },
+    { label: "Screens designed", value: "140+" },
+    { label: "Duration", value: "6 mo" },
+  ],
+  review: {
+    initials: "AR",
+    name: "Arjun Rao",
+    role: "CTO, BuildCore",
+    text: "Transformed how our team interacts with infrastructure. The clarity of the interface made adoption instant.",
+  },
+};
+
+## Overview
+
+BuildCore operates a portfolio of commercial and industrial properties across 14 cities. Their existing BMS was fragmented, with data split across multiple tools and critical alerts buried in inboxes instead of being surfaced in the flow of work.
+
+The brief was to design a unified monitoring platform that could scale across the full estate while keeping the interface legible enough for engineers working under pressure in control-room conditions.
+
+> "Transformed how our team interacts with infrastructure. The clarity of the interface made adoption instant." — Arjun Rao, CTO BuildCore
+
+## The Problem
+
+After a week of shadowing facility teams, three core issues repeated in every workflow: alert fatigue from noisy notifications, high cognitive load when switching between buildings, and no useful history at the moment of diagnosis.
+
+### Key findings from research
+
+- Engineers missed roughly one in five critical alerts because low-priority noise drowned them out.
+- Average time to diagnose a fault was 23 minutes, with a target of under 5 minutes.
+- Reporting depended on manual exports and cost each manager multiple hours every week.
+
+## Design Approach
+
+The product structure centered on three levels of context: Estate, Building, and Zone. That hierarchy stayed visible at all times so engineers could drill down without losing where they were inside the system.
+
+Alerts were redesigned as a triage surface instead of a flat list. Visual priority, acknowledgement, escalation, and snooze actions all stayed close to the signal so operators could act without bouncing between screens.
+
+### System architecture principles
+
+- Context-first navigation that always reveals where a user is in the estate hierarchy.
+- Ambient data density that keeps important metrics visible without crowding action surfaces.
+- Interruption design that reserves heavyweight treatments for critical failures and keeps warnings inline.
+
+## Execution
+
+The UI system was built around a dark-first token set and tested for low-light environments, since many of the operational spaces already worked in dimmer ambient lighting. More than 140 screens were produced across desktop and large-format display views.
+
+Motion was used to communicate system state rather than decoration. Coordinated layout transitions and staggered data reveals helped operators understand what changed between contexts without needing to relearn the screen.
+
+<CaseStudyImage
+  src="/projects/bms_2.png"
+  alt="BMS dashboard overview"
+  caption="Dashboard overview — estate-level monitoring surface"
+/>
+
+## Outcome
+
+After rollout at the first pilot sites, fault diagnosis time dropped from 23 minutes to under 8. Alert acknowledgement rates climbed to 97%, and the reporting workflow removed around three hours of weekly manual work per manager.
+
+The client expanded the rollout plan across the full portfolio and used the new platform as the foundation for future mobile operations tooling.

@@ -23,7 +23,7 @@ export default function Header() {
   }, []);
   return (
     <header className="fixed top-0 z-999  w-full ">
-      <div className="absolute top-0 left-0 w-full  h-50 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent"></div>{" "}
+      {/* <div className="absolute pointer-events-none top-0 left-0 w-full  h-50 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent"></div>{" "} */}
       <div className="flex items-end justify-between  px-2 py-6 w-full h-full max-w-7xl mx-auto">
         <div className="flex gap-6">
           <div className="px-2 flex backdrop-blur-md z-50 relative items-center gap-2 border font-normal text-primary border-primary rounded-[0.25rem] w-max">
