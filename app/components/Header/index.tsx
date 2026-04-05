@@ -1,9 +1,75 @@
 "use client";
+import { useLenis } from "lenis/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import type { MouseEvent } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+const ABOUT_ID = "about";
+const ABOUT_HASH = `#${ABOUT_ID}`;
+const ABOUT_PATH = `/${ABOUT_HASH}`;
+const ABOUT_OFFSET = -112;
+const ABOUT_SCROLL_RETRIES = 20;
+const ABOUT_SCROLL_RETRY_DELAY = 80;
 
 export default function Header() {
   const [time, setTime] = useState("");
+  const pathname = usePathname();
+  const router = useRouter();
+  const lenis = useLenis();
+
+  const scrollToAbout = useCallback(
+    (attempt = 0) => {
+      const aboutSection = document.getElementById(ABOUT_ID);
+
+      if (!aboutSection) {
+        if (attempt >= ABOUT_SCROLL_RETRIES) {
+          return;
+        }
+
+        window.setTimeout(() => {
+          scrollToAbout(attempt + 1);
+        }, ABOUT_SCROLL_RETRY_DELAY);
+
+        return;
+      }
+
+      window.history.replaceState(null, "", ABOUT_HASH);
+
+      if (lenis) {
+        lenis.scrollTo(aboutSection, {
+          offset: ABOUT_OFFSET,
+          duration: 1.2,
+        });
+        return;
+      }
+
+      const top =
+        aboutSection.getBoundingClientRect().top +
+        window.scrollY +
+        ABOUT_OFFSET;
+
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    },
+    [lenis],
+  );
+
+  const handleAboutClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+
+      if (pathname === "/") {
+        scrollToAbout();
+        return;
+      }
+
+      router.push(ABOUT_PATH);
+    },
+    [pathname, router, scrollToAbout],
+  );
 
   useEffect(() => {
     const updateTime = () => {
@@ -21,6 +87,21 @@ export default function Header() {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (pathname !== "/" || window.location.hash !== ABOUT_HASH) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      scrollToAbout();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, [pathname, scrollToAbout]);
+
   return (
     <header className="fixed top-0 z-999  w-full ">
       {/* <div className="absolute pointer-events-none top-0 left-0 w-full  h-50 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent"></div>{" "} */}
@@ -48,12 +129,13 @@ export default function Header() {
           <Link
             className="active:text-primary text-base leading-none"
             href={"/#about"}
+            onClick={handleAboutClick}
           >
             About
           </Link>
           <Link
             className="active:text-primary text-base leading-none"
-            href={"/projects"}
+            href={"/work"}
           >
             Work
           </Link>

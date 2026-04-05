@@ -49,11 +49,11 @@ export default function HeroSection() {
             <div className="flex flex-col items-center gap-5 pt-2">
               <ScheduleCallButton />
               <Link
-                href="/projects"
+                href="/work"
                 className="group inline-flex items-center gap-3 text-xs uppercase tracking-[0.32em] text-white/40 transition-colors hover:text-white/70"
               >
                 <span className="h-px w-8 bg-white/18 transition-all group-hover:w-12 group-hover:bg-white/35" />
-                View Projects
+                View Work
               </Link>
             </div>
           </div>

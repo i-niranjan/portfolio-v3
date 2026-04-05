@@ -12,7 +12,10 @@ import { Globe } from "@/components/ui/globe";
 export default function BentoGrid() {
   return (
     <Container>
-      <div className="grid min-h-screen grid-cols-12 grid-rows-[auto_1fr_1fr] gap-y-5 gap-x-2.5 py-20">
+      <div
+        id="about"
+        className="grid min-h-screen scroll-mt-32 grid-cols-12 grid-rows-[auto_1fr_1fr] gap-x-2.5 gap-y-5 py-20"
+      >
         <Column className="col-span-12 ">
           <FirstRow />
         </Column>

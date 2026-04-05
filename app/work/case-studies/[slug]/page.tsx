@@ -1,4 +1,4 @@
-import { CaseStudyPageClient } from "@/app/projects/case-studies/[slug]/CaseStudyPageClient";
+import { CaseStudyPageClient } from "@/app/work/case-studies/[slug]/CaseStudyPageClient";
 import { getAllCaseStudies, getCaseStudyBySlug } from "@/content/case-studies";
 import { notFound } from "next/navigation";
 

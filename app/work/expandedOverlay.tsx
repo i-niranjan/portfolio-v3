@@ -255,7 +255,7 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
 
             <motion.button
               onClick={() =>
-                router.push(`/projects/case-studies/${project.slug}`)
+                router.push(`/work/case-studies/${project.slug}`)
               }
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}

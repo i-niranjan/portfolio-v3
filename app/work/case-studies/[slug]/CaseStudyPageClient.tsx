@@ -4,8 +4,8 @@ import type {
   CaseStudyMetadata,
   CaseStudyStat,
   TocSection,
-} from "@/app/projects/types";
-import { caseStudyMDXComponents } from "@/app/projects/case-studies/[slug]/caseStudyMdx";
+} from "@/app/work/types";
+import { caseStudyMDXComponents } from "@/app/work/case-studies/[slug]/caseStudyMdx";
 import { getCaseStudyBySlug } from "@/content/case-studies";
 import { motion, useInView } from "motion/react";
 import Image from "next/image";

@@ -1,4 +1,4 @@
-import type { CaseStudyEntry, CaseStudyMetadata } from "@/app/projects/types";
+import type { CaseStudyEntry, CaseStudyMetadata } from "@/app/work/types";
 import BmsPlatform, {
   metadata as bmsPlatformMetadata,
 } from "@/content/case-studies/bms-platform.mdx";

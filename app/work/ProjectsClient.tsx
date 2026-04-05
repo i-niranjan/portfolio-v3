@@ -1,7 +1,7 @@
 "use client";
 
-import { ExpandedOverlay } from "@/app/projects/expandedOverlay";
-import type { ProjectMeta } from "@/app/projects/types";
+import { ExpandedOverlay } from "@/app/work/expandedOverlay";
+import type { ProjectMeta } from "@/app/work/types";
 import { Marquee } from "@/components/ui/marquee";
 import { AnimatePresence } from "motion/react";
 import Image from "next/image";

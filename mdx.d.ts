@@ -1,5 +1,5 @@
 declare module "*.mdx" {
-  import type { CaseStudyMetadata } from "@/app/projects/types";
+  import type { CaseStudyMetadata } from "@/app/work/types";
   import type { MDXComponents } from "mdx/types";
   import type { ComponentType } from "react";
 
