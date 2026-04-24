@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { MouseEvent } from "react";
 import { useCallback, useEffect, useState, ViewTransition } from "react";
+import CalButton from "@/components/cal-modal";
+import { Button } from "@/components/ui/button";
 
 const ABOUT_ID = "about";
 const ABOUT_HASH = `#${ABOUT_ID}`;
@@ -108,10 +110,10 @@ export default function Header() {
   }, [pathname, scrollToAbout]);
 
   return (
-    <header className="fixed top-0 z-999  w-full ">
+    <header className="fixed top-0 z-999 w-full">
       {/* <div className="absolute pointer-events-none top-0 left-0 w-full  h-50 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent"></div>{" "} */}
-      <div className="flex items-end justify-between  px-2 py-6 w-full h-full max-w-7xl mx-auto">
-        <div className="flex gap-6">
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-center px-4 py-4 sm:px-6 md:items-end md:justify-between md:py-6 lg:px-2">
+        <div className="hidden gap-6 md:flex">
           <div className="px-2 flex backdrop-blur-md z-50 relative items-center gap-2 border font-normal text-primary border-primary rounded-[0.25rem] w-max">
             {time} <IconClock />
           </div>
@@ -123,9 +125,9 @@ export default function Header() {
           </div>
         </div>
 
-        <nav className="absolute left-1/2 -translate-x-1/2 uppercase flex gap-10 items-end backdrop-blur-md px-3 py-2 rounded-md">
+        <nav className="flex items-end gap-6 rounded-md px-3 py-2 uppercase backdrop-blur-md sm:gap-8 md:absolute md:left-1/2 md:-translate-x-1/2 md:gap-10">
           <TransitionLink
-            className="relative active:text-primary text-base leading-none"
+            className="relative text-sm leading-none active:text-primary sm:text-base"
             href="/"
           >
             Home
@@ -133,14 +135,14 @@ export default function Header() {
           </TransitionLink>
 
           <Link
-            className="active:text-primary text-base leading-none"
+            className="text-sm leading-none active:text-primary sm:text-base"
             href={"/#about"}
             onClick={handleAboutClick}
           >
             About
           </Link>
           <TransitionLink
-            className="relative active:text-primary text-base leading-none"
+            className="relative text-sm leading-none active:text-primary sm:text-base"
             href="/work"
           >
             Work
@@ -149,10 +151,22 @@ export default function Header() {
         </nav>
         <Link
           href={"#"}
-          className="text-primary flex gap-2 z-10 items-center  leading-none text-base"
+          className="text-primary z-10 hidden items-center gap-2 leading-none text-base md:flex"
         >
           <TelePhone />{" "}
-          <span className="leading-none block translate-y-[1px]">TALK</span>
+          <span className="leading-none  block translate-y-[1px]">
+            <CalButton>
+              <Button
+                className="p-0"
+                variant={"link"}
+                data-cal-namespace="30min"
+                data-cal-link="iniranjan/30min"
+                data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'
+              >
+                TALK
+              </Button>
+            </CalButton>
+          </span>
         </Link>
       </div>
     </header>

@@ -37,15 +37,15 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
         style={{ opacity: isAnyHovered ? 0.55 : 0 }}
       />
 
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-0">
         <motion.div
           initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="flex w-full items-center pb-20 pt-45"
+          className="flex w-full items-center pb-14 pt-32 md:pb-20 md:pt-45"
         >
-          <div className="flex w-full justify-end">
-            <h1 className="max-w-3xl text-left font-inter text-3xl leading-12 text-white">
+          <div className="flex w-full justify-start md:justify-end">
+            <h1 className="max-w-3xl text-left font-inter text-2xl leading-9 text-white sm:text-3xl sm:leading-12">
               I design and build thoughtful digital experiences that balance
               performance with aesthetics. Each project is crafted with
               attention to detail, focusing on usability, clarity, and a
@@ -77,7 +77,7 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
                 onMouseEnter={() => setHoveredSlug(project.slug)}
                 onMouseLeave={() => setHoveredSlug(null)}
                 onClick={() => setExpandedSlug(project.slug)}
-                className="glass-frosted relative h-50 w-100 cursor-pointer overflow-hidden rounded-sm text-left"
+                className="glass-frosted relative h-38 w-72 cursor-pointer overflow-hidden rounded-sm text-left sm:h-44 sm:w-88 md:h-50 md:w-100"
                 style={{
                   transition:
                     "transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease, opacity 0.4s ease",

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { getCalApi } from "@calcom/embed-react";
 
 /* ─── HeadsetIcon ─────────────────────────────────────────────── */
 const HeadsetIcon: React.FC = () => {
@@ -116,6 +117,21 @@ const ScheduleCallButton: React.FC<ScheduleCallButtonProps> = ({
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", {
+        theme: "dark",
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#ad91ea" },
+          dark: { "cal-brand": "#ad91ea" },
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
+  }, []);
+
   /* ── Hover handlers ── */
   const handleMouseEnter = (): void => {
     gsap.to(buttonRef.current, {
@@ -198,7 +214,10 @@ const ScheduleCallButton: React.FC<ScheduleCallButtonProps> = ({
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       aria-label={label}
-      className="relative px-9 py-3.5 rounded-[10px] border-none outline-none cursor-pointer bg-transparent overflow-hidden"
+      data-cal-namespace="30min"
+      data-cal-link="iniranjan/30min"
+      data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'
+      className="relative cursor-pointer overflow-hidden rounded-[10px] border-none bg-transparent px-6 py-3.5 outline-none sm:px-9"
       style={{ willChange: "transform, opacity" }}
     >
       {/* ── Radial dark base ── */}
@@ -301,12 +320,12 @@ const ScheduleCallButton: React.FC<ScheduleCallButtonProps> = ({
         ref={canvasRef}
         width={400}
         height={80}
-        className="absolute inset-0 rounded-[10px] z-[4] pointer-events-none"
+        className="absolute inset-0 rounded-[10px] z-4 pointer-events-none"
         style={{ mixBlendMode: "screen" }}
       />
 
       {/* ── Label + icon ── */}
-      <span className="relative z-[5] text-red flex items-center gap-2.5 text-[17px] font-bold tracking-[0.18em] uppercase select-none">
+      <span className="text-red relative z-5 flex select-none items-center gap-2.5 text-[14px] font-bold uppercase tracking-[0.14em] sm:text-[17px] sm:tracking-[0.18em]">
         {label}
         <HeadsetIcon />
       </span>

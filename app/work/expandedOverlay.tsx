@@ -208,13 +208,13 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
 
       {/* Modal */}
       <motion.div
-        className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center"
+        className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
         <motion.div
-          className="glass-frosted pointer-events-auto bg-black/90 backdrop-blur-2xl relative mx-8 flex min-h-[480px] w-full max-w-[960px] items-center gap-16 overflow-hidden rounded-[4px] px-10 py-10"
+          className="glass-frosted pointer-events-auto relative flex max-h-[calc(100vh-2rem)] w-full max-w-[960px] flex-col gap-7 overflow-y-auto rounded-[4px] bg-black/90 px-5 py-6 backdrop-blur-2xl sm:px-7 sm:py-8 md:mx-8 md:min-h-[480px] md:flex-row md:items-center md:gap-16 md:overflow-hidden md:px-10 md:py-10"
           initial={{ opacity: 0, y: 12, scale: 0.985 }}
           animate={{
             opacity: closing ? 0 : 1,
@@ -268,7 +268,7 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.85, duration: 0.35, ease: "easeOut" }}
               whileHover="hovered"
-              className="glass-card group cursor-pointer relative flex items-center w-max gap-3 overflow-hidden rounded-[2px] px-[18px] py-[10px] text-xs font-semibold uppercase tracking-[0.14em] text-white/85 no-underline"
+              className="glass-card group relative flex w-full cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-[2px] px-[18px] py-[10px] text-xs font-semibold uppercase tracking-[0.14em] text-white/85 no-underline sm:w-max sm:justify-start"
               style={{ background: "rgba(255,255,255,0.05)" }}
             >
               {/* Purple shimmer sweep on hover */}
@@ -328,7 +328,7 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
           </div>
 
           <motion.div
-            className="relative z-[1] flex w-[46%] flex-shrink-0 flex-col gap-4"
+            className="relative z-[1] flex w-full flex-shrink-0 flex-col gap-4 md:w-[46%]"
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
@@ -342,7 +342,7 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
         </motion.div>
 
         {/* Close button */}
-        <div className="absolute top-8 right-8">
+        <div className="absolute right-4 top-4 sm:right-8 sm:top-8">
           <motion.button
             type="button"
             onClick={handleClose}

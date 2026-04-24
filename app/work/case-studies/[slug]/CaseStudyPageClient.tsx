@@ -16,6 +16,8 @@ interface CaseStudyPageClientProps {
   metadata: CaseStudyMetadata;
 }
 
+const SHOW_CASE_STUDY_DRAFT_NOTICE = true;
+
 function StatsRow({ stats }: { stats: CaseStudyStat[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-5% 0px" });
@@ -62,7 +64,7 @@ function Hero({
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mb-10 aspect-[21/8] w-full overflow-hidden rounded-[4px] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(255,255,255,0.07),0_40px_80px_rgba(0,0,0,0.7)]"
+        className="relative mb-8 aspect-[4/3] w-full overflow-hidden rounded-[4px] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(255,255,255,0.07),0_40px_80px_rgba(0,0,0,0.7)] sm:aspect-[16/9] md:mb-10 lg:aspect-[21/8]"
       >
         <ViewTransition name={`case-${metadata.slug}`}>
           <Image
@@ -100,7 +102,7 @@ function Hero({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.38, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-13 max-w-[520px] text-[15px] leading-[1.65] text-white/38"
+        className="mb-10 max-w-[520px] text-[15px] leading-[1.65] text-white/38 md:mb-13"
       >
         {metadata.subtitle}
       </motion.p>
@@ -202,6 +204,21 @@ function Sidebar({
   );
 }
 
+function DraftCaseStudyNotice({ metadata }: { metadata: CaseStudyMetadata }) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.18, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="relative overflow-hidden rounded-[4px] border border-white/7 bg-white/[0.025] px-5 py-8  backdrop-blur-[20px] sm:px-7 sm:py-10"
+    >
+      <h2 className="mb-4 max-w-155 text-[clamp(1.6rem,4vw,2.65rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-white/92">
+        Still Working on the full {metadata.title} case study...
+      </h2>
+    </motion.section>
+  );
+}
+
 export function CaseStudyPageClient({
   slug,
   metadata,
@@ -297,23 +314,29 @@ export function CaseStudyPageClient({
       /> */}
 
       <div className="pt-[52px]">
-        <div className="mx-auto max-w-[1060px] px-4 pb-0 pt-10 md:px-10">
+        <div className="mx-auto max-w-[1060px] px-4 pb-0 pt-8 md:px-10 md:pt-10">
           <Hero metadata={metadata} slug={slug} />
         </div>
 
-        <div className="mx-auto flex max-w-[1060px] flex-col gap-10 px-4 pb-[120px] md:px-10 lg:flex-row lg:items-start lg:gap-[60px]">
-          <Sidebar
-            metadata={metadata}
-            sections={sections}
-            activeSection={activeSection}
-            onSelect={scrollToSection}
-          />
+        <div className="mx-auto flex max-w-[1060px] flex-col gap-8 px-4 pb-20 md:px-10 lg:flex-row lg:items-start lg:gap-[60px] lg:pb-[120px]">
+          {!SHOW_CASE_STUDY_DRAFT_NOTICE ? (
+            <Sidebar
+              metadata={metadata}
+              sections={sections}
+              activeSection={activeSection}
+              onSelect={scrollToSection}
+            />
+          ) : null}
 
           <main className="min-w-0 flex-1">
             <StatsRow stats={metadata.stats} />
 
             <div ref={contentRef} className="min-w-0">
-              <Content components={caseStudyMDXComponents} />
+              {SHOW_CASE_STUDY_DRAFT_NOTICE ? (
+                <DraftCaseStudyNotice metadata={metadata} />
+              ) : (
+                <Content components={caseStudyMDXComponents} />
+              )}
             </div>
           </main>
         </div>

@@ -14,15 +14,15 @@ export default function BentoGrid() {
     <Container>
       <div
         id="about"
-        className="grid min-h-screen scroll-mt-32 grid-cols-12 grid-rows-[auto_1fr_1fr] gap-x-2.5 gap-y-5 py-20"
+        className="grid min-h-screen scroll-mt-32 grid-cols-1 gap-x-2.5 gap-y-5 py-16 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[auto_1fr_1fr] lg:py-20"
       >
-        <Column className="col-span-12 ">
+        <Column className="md:col-span-6 lg:col-span-12">
           <FirstRow />
         </Column>
 
         <Column
           bgVariant="plainBlack"
-          className="col-span-4  bg-[url(/assets/portrait-image.jpg)] bg-cover bg-center"
+          className="min-h-[420px] bg-[url(/assets/portrait-image.jpg)] bg-cover bg-center md:col-span-3 lg:col-span-4 lg:min-h-0"
         >
           <div className="flex h-full w-full items-end p-6">
             <div
@@ -39,8 +39,8 @@ export default function BentoGrid() {
           </div>
           <div className="h-40 w-full absolute bg-linear-to-t from-black via-black/70 to-black/0 bottom-0"></div>
         </Column>
-        <Column className="col-span-5">
-          <div className="flex w-full h-full p-6 flex-col gap-2 text-xl ">
+        <Column className="md:col-span-3 lg:col-span-5">
+          <div className="flex h-full w-full flex-col gap-2 p-6 text-xl">
             <h2>About me</h2>
             <span className="text-sm text-white/50">
               Hello. Enjoying the portfolio so far?
@@ -60,15 +60,15 @@ export default function BentoGrid() {
             </span>
           </div>
         </Column>
-        <Column className="col-span-3 p-6 relative">
+        <Column className="relative min-h-[300px] p-6 md:col-span-6 lg:col-span-3 lg:min-h-0">
           <Image
-            className="absolute right-0 top-0 z-10 animate-pulse"
+            className="absolute right-0 top-0 z-10 h-auto w-36 animate-pulse sm:w-[200px]"
             src={"/assets/web-asset.png"}
             height={200}
             width={200}
             alt="web asset"
           />
-          <div className="flex flex-col w-full h-full justify-end gap-13">
+          <div className="flex h-full w-full flex-col justify-end gap-13">
             <div className="space-y-4">
               {["System Design", "DevOps & Tools", "Performance Tuning"].map(
                 (i, index) => {
@@ -80,7 +80,7 @@ export default function BentoGrid() {
           </div>
         </Column>
 
-        <div className="col-span-2 gap-4 flex flex-col ">
+        <div className="flex flex-col gap-4 md:col-span-2 lg:col-span-2">
           <Column bgVariant="plainBlack" className="h-30">
             <div className="flex flex-col gap-2 items-center justify-center w-full h-full">
               <div className="font-bold text-5xl flex items-center ">
@@ -101,26 +101,26 @@ export default function BentoGrid() {
           </Column>
           <div className="space-y-2">
             <Column
-              className="flex px-3 py-2 items-center gap-3 w-max rounded-md! cursor-pointer hover:scale-105 transition-all"
+              className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
               bgVariant="plainBlack"
             >
               <BookIcon /> <span>Insights</span> <ArrowIcon />
             </Column>
             <Column
-              className="flex px-3 py-2 items-center gap-3 w-max rounded-md! cursor-pointer hover:scale-105 transition-all"
+              className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
               bgVariant="plainBlack"
             >
               <PhoneIcon /> <span>Connect</span> <ArrowIcon />
             </Column>
             <Column
-              className="flex px-3 py-2 items-center gap-3 w-max rounded-md! cursor-pointer hover:scale-105 transition-all"
+              className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
               bgVariant="plainBlack"
             >
               <RocketIcon /> <span>Work</span> <ArrowIcon />
             </Column>
           </div>
         </div>
-        <Column className="col-span-4 pt-18">
+        <Column className="min-h-[320px] pt-18 md:col-span-4 lg:col-span-4 lg:min-h-0">
           <div className="w-full h-full bg-[url('/assets/brand-slide/indinite-slide.png')] bg-cover flex items-end">
             <div className="p-4 flex justify-between w-full items-end">
               <div className="space-x-2">
@@ -140,8 +140,8 @@ export default function BentoGrid() {
             </div>
           </div>
         </Column>
-        <Column className="col-span-6 relative">
-          <div className="h-full w-full relative">
+        <Column className="relative min-h-[360px] md:col-span-6 lg:col-span-6 lg:min-h-0">
+          <div className="relative h-full w-full">
             <div className="flex items-center w-full flex-col pt-20">
               <span>Based In India</span>
               <span className="italic flex gap-2 items-center">

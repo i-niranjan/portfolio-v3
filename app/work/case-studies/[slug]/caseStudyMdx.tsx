@@ -144,7 +144,7 @@ function CaseStudyImage({
   return (
     <RevealBlock>
       <div className="my-7">
-        <div className="relative aspect-[16/8] w-full overflow-hidden rounded-[4px] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_0_1px_rgba(255,255,255,0.07),0_24px_48px_rgba(0,0,0,0.5)]">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[4px] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_0_1px_rgba(255,255,255,0.07),0_24px_48px_rgba(0,0,0,0.5)] sm:aspect-[16/8]">
           <Image fill src={src} alt={alt ?? ""} className="object-cover" />
         </div>
         {caption ? (

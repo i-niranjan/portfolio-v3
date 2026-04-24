@@ -1,3 +1,4 @@
+import CalButton from "@/components/cal-modal";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import Link from "next/link";
@@ -7,41 +8,38 @@ export default function Footer() {
   const SocialLinks = [
     {
       text: "Github",
-      link: "#",
+      link: "https://github.com/i-niranjan",
     },
     {
       text: "LinkedIn",
-      link: "#",
+      link: "https://www.linkedin.com/in/niranjan-chaudhari-26157b194/",
     },
-    {
-      text: "Instagram",
-      link: "#",
-    },
+
     {
       text: "X (Twitter)",
-      link: "#",
+      link: "https://x.com/imniranjann",
     },
   ];
 
   const explore = [
     {
       text: "About Me",
-      url: "#",
+      url: "/#about",
     },
-    {
-      text: "Journal",
-      url: "#",
-    },
+    // {
+    //   text: "Journal",
+    //   url: "#",
+    // },
     {
       text: "Work",
-      url: "#",
+      url: "/work",
     },
   ];
 
   return (
-    <footer className="w-full max-w-7xl mx-auto  h-120 grid grid-cols-6 py-16">
-      <div className="col-span-2 bg-[url('/assets/chrome51.png')] bg-contain bg-no-repeat relative ml-4 ">
-        <div className="absolute w-100 h-full left-0 top-0 bg-linear-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-black/0"></div>
+    <footer className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-6 md:gap-0 md:py-16 lg:h-120 lg:px-0">
+      <div className="relative min-h-64 bg-[url('/assets/chrome51.png')] bg-contain bg-no-repeat md:col-span-2 md:ml-4 md:min-h-0">
+        <div className="absolute left-0 top-0 h-full w-full max-w-100 bg-linear-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-black/0"></div>
       </div>
       <div className="px-2 space-y-8">
         <div className="space-y-3 ">
@@ -56,7 +54,9 @@ export default function Footer() {
                 className="uppercase text-sm text-white/30 underline"
                 asChild
               >
-                <Link href={i.link}>{i.text}</Link>
+                <Link href={i.link} target="_blank" rel="noopener noreferrer">
+                  {i.text}
+                </Link>
               </Button>
             ))}
           </div>
@@ -79,7 +79,7 @@ export default function Footer() {
           </Button>
         </div>
       </div>
-      <div className=" space-y-8">
+      <div className="space-y-8">
         <div className="space-y-3 px-2 ">
           <span className="flex gap-3 items-center">
             <RightArrowIcon /> <span className="text-xl">Explore</span>
@@ -99,16 +99,18 @@ export default function Footer() {
         </div>
 
         <div className="space-y-3 px-2">
-          <Button
-            variant={"ghost"}
-            size={"icon"}
-            className=" text-sm px-0 text-white rounded-sm! h-16 glass-frosted w-[98%]"
-            asChild
-          >
-            <Link href={"mailto:iniranjanchaudhari@gmail.com"} className="">
+          <CalButton>
+            <Button
+              data-cal-namespace="30min"
+              data-cal-link="iniranjan/30min"
+              data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'
+              variant={"ghost"}
+              size={"icon"}
+              className="cursor-pointer text-sm px-0 text-white rounded-sm! h-16 glass-frosted w-[98%]"
+            >
               Schedule A Call
-            </Link>
-          </Button>
+            </Button>
+          </CalButton>
         </div>
       </div>
     </footer>

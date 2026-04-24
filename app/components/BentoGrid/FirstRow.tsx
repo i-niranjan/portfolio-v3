@@ -36,14 +36,14 @@ const coreStack = [
 ];
 export default function FirstRow() {
   return (
-    <div className=" grid grid-cols-6 h-full ">
-      <div className=" p-5  flex flex-col justify-center">
+    <div className="grid h-full gap-2 sm:grid-cols-6 sm:gap-0">
+      <div className="flex flex-col justify-center p-5">
         <span className="font-semibold text-xl text-primary">Core Stack</span>
         <span className="text-sm">Built for scale.</span>
       </div>
-      <div className=" col-span-5 p-5 flex items-center relative overflow-hidden">
-        <div className="absolute top-1 left-0 h-full w-40 bg-linear-to-r from-[#020202] via-[#020202]/70 to-black/0 z-50"></div>
-        <div className="absolute top-0 right-0 h-full w-40 bg-linear-to-l from-[#090909] via-[#090909]/70 to-black/0 z-50"></div>
+      <div className="relative flex items-center overflow-hidden p-4 sm:col-span-5 sm:p-5">
+        <div className="absolute top-1 left-0 z-50 h-full w-16 bg-linear-to-r from-[#020202] via-[#020202]/70 to-black/0 sm:w-40"></div>
+        <div className="absolute top-0 right-0 z-50 h-full w-16 bg-linear-to-l from-[#090909] via-[#090909]/70 to-black/0 sm:w-40"></div>
         <Marquee pauseOnHover className="[--duration:60s]">
           {coreStack.map((Icon, index) => (
             <IconBox key={index}>
