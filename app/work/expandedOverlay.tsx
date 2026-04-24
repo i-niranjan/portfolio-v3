@@ -2,10 +2,17 @@ import { IconArrowUpRight, IconX } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { createPortal } from "react-dom";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  ViewTransition,
+} from "react";
 import type { ProjectMeta } from "./types";
 import { DitherShader } from "@/components/ui/dither-shader"; // adjust path
 import { useRouter } from "next/navigation";
+import { navigateWithTransition } from "@/lib/view-transition-navigation";
 interface ExpandedOverlayProps {
   project: ProjectMeta;
   onClose: () => void;
@@ -49,14 +56,6 @@ function RightFrame({
   const [settled, setSettled] = useState(false);
   const [showReal, setShowReal] = useState(false);
 
-  // When closing starts, dither reclaims the image immediately
-  useEffect(() => {
-    if (isClosing) {
-      setShowReal(false);
-      setTagVisible(false);
-    }
-  }, [isClosing]);
-
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       const rect = frameRef.current?.getBoundingClientRect();
@@ -91,62 +90,66 @@ function RightFrame({
 
   return (
     <div className="flex flex-col gap-4">
-      <div
-        ref={frameRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => {
-          if (isClosing) return;
-          setTagVisible(true);
-          setShowReal(true);
-        }}
-        onMouseLeave={() => {
-          setTagVisible(false);
-          setShowReal(false);
-        }}
-        className="glass-card relative aspect-video w-full cursor-none overflow-hidden rounded-[2px]"
-      >
-        <DitherShader
-          src={project.coverImage}
-          ditherMode="noise"
-          colorMode="original"
-          primaryColor="#000000"
-          secondaryColor="#9b6dff"
-          gridSize={2}
-          brightness={-0.1}
-          contrast={1.15}
-          objectFit="cover"
-          animated={true}
-          className="absolute inset-0 h-full w-full"
-        />
-
+      <ViewTransition name={`case-${project.slug}`}>
         <div
-          className="absolute inset-0"
-          style={{
-            opacity: showReal ? 1 : 0,
-            transition: "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+          ref={frameRef}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => {
+            if (isClosing) return;
+            setTagVisible(true);
+            setShowReal(true);
           }}
+          onMouseLeave={() => {
+            setTagVisible(false);
+            setShowReal(false);
+          }}
+          className="glass-card relative aspect-video w-full cursor-none overflow-hidden rounded-[2px]"
         >
-          <Image
-            fill
+          <DitherShader
             src={project.coverImage}
-            alt={project.title}
-            className="object-cover"
-            style={{
-              transform: settled ? "scale(1)" : "scale(1.05)",
-              transition: "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)",
-            }}
+            ditherMode="noise"
+            colorMode="original"
+            primaryColor="#000000"
+            secondaryColor="#9b6dff"
+            gridSize={2}
+            brightness={-0.1}
+            contrast={1.15}
+            objectFit="cover"
+            animated={true}
+            className="absolute inset-0 h-full w-full"
           />
-        </div>
 
-        <div
-          ref={tagRef}
-          className="pointer-events-none absolute left-0 top-0 z-10 whitespace-nowrap rounded-full bg-white px-[14px] py-[6px] font-commit text-[10px] uppercase tracking-[0.12em] text-black transition-opacity duration-200"
-          style={{ opacity: tagVisible ? 1 : 0, willChange: "transform" }}
-        >
-          View -&gt;
-        </div>
-      </div>
+          <div
+            className="absolute inset-0"
+            style={{
+              opacity: showReal && !isClosing ? 1 : 0,
+              transition: "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          >
+            <Image
+              fill
+              src={project.coverImage}
+              alt={project.title}
+              className="object-cover"
+              style={{
+                transform: settled ? "scale(1)" : "scale(1.05)",
+                transition: "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            />
+          </div>
 
+          <div
+            ref={tagRef}
+            className="pointer-events-none absolute left-0 top-0 z-10 whitespace-nowrap rounded-full bg-white px-[14px] py-[6px] font-commit text-[10px] uppercase tracking-[0.12em] text-black transition-opacity duration-200"
+            style={{
+              opacity: tagVisible && !isClosing ? 1 : 0,
+              willChange: "transform",
+            }}
+          >
+            View -&gt;
+          </div>
+        </div>
+      </ViewTransition>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="mb-1 text-xs font-medium tracking-[0.01em] text-white/55">
@@ -254,9 +257,13 @@ export function ExpandedOverlay({ project, onClose }: ExpandedOverlayProps) {
             <WordFadeText text={project.description} />
 
             <motion.button
-              onClick={() =>
-                router.push(`/work/case-studies/${project.slug}`)
-              }
+              onClick={() => {
+                navigateWithTransition(
+                  router.push,
+                  `/work/case-studies/${project.slug}`,
+                );
+                handleClose(); // let animation run alongside
+              }}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.85, duration: 0.35, ease: "easeOut" }}

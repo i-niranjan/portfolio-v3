@@ -206,3 +206,67 @@
     mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
   }
 }
+
+::view-transition-old(route-content),
+::view-transition-new(route-content) {
+  animation-duration: 360ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(route-content) {
+  animation-name: route-content-out;
+}
+
+::view-transition-new(route-content) {
+  animation-name: route-content-in;
+}
+
+::view-transition-old(nav-active),
+::view-transition-new(nav-active) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(route-content),
+::view-transition-new(route-content),
+::view-transition-old(nav-active),
+::view-transition-new(nav-active) {
+  pointer-events: none;
+}
+
+@keyframes route-content-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes route-content-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(route-content),
+  ::view-transition-new(route-content),
+  ::view-transition-old(nav-active),
+  ::view-transition-new(nav-active) {
+    animation-duration: 1ms;
+    animation-name: none;
+  }
+}

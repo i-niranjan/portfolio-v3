@@ -2,7 +2,7 @@ import React from "react";
 import TerminalText from "./TerminalText";
 import ScheduleCallButton from "./ScheduleCallButton";
 import Container from "@/components/container";
-import Link from "next/link";
+import TransitionLink from "@/app/components/TransitionLink";
 
 const proofPoints = [
   "2+ Years Building",
@@ -48,13 +48,13 @@ export default function HeroSection() {
 
             <div className="flex flex-col items-center gap-5 pt-2">
               <ScheduleCallButton />
-              <Link
+              <TransitionLink
                 href="/work"
                 className="group inline-flex items-center gap-3 text-xs uppercase tracking-[0.32em] text-white/40 transition-colors hover:text-white/70"
               >
                 <span className="h-px w-8 bg-white/18 transition-all group-hover:w-12 group-hover:bg-white/35" />
                 View Work
-              </Link>
+              </TransitionLink>
             </div>
           </div>
         </div>

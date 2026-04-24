@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import "lenis/dist/lenis.css";
 import "@/css/glass.css";
 import LenisProvider from "@/app/components/lenis-provider";
+import RouteTransitionShell from "@/app/components/RouteTransitionShell";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,7 +29,9 @@ export default function RootLayout({
         <LenisProvider>
           <Header />
 
-          <main>{children}</main>
+          <main>
+            <RouteTransitionShell>{children}</RouteTransitionShell>
+          </main>
 
           <Footer />
         </LenisProvider>

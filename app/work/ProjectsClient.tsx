@@ -3,7 +3,7 @@
 import { ExpandedOverlay } from "@/app/work/expandedOverlay";
 import type { ProjectMeta } from "@/app/work/types";
 import { Marquee } from "@/components/ui/marquee";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -38,7 +38,12 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
       />
 
       <div className="mx-auto max-w-7xl">
-        <div className="flex w-full items-center pb-20 pt-45">
+        <motion.div
+          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="flex w-full items-center pb-20 pt-45"
+        >
           <div className="flex w-full justify-end">
             <h1 className="max-w-3xl text-left font-inter text-3xl leading-12 text-white">
               I design and build thoughtful digital experiences that balance
@@ -47,10 +52,19 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
               seamless user journey.
             </h1>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="relative z-20 w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{
+          delay: 0.12,
+          duration: 0.6,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="relative z-20 w-full"
+      >
         <Marquee pauseOnHover className="[--duration:20s]">
           {projects.map((project) => {
             const isHovered = hoveredSlug === project.slug;
@@ -85,7 +99,7 @@ export function ProjectsClient({ projects }: ProjectsClientProps) {
             );
           })}
         </Marquee>
-      </div>
+      </motion.div>
 
       {expandedProject ? (
         <AnimatePresence>

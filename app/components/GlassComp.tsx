@@ -162,7 +162,7 @@ export default function GlassShowcase() {
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col gap-14">
         {/* Header */}
         <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-white/30">
-          // glass.css — component library
+          glass.css — component library
         </p>
 
         {/* 01 — Core Glass Card */}

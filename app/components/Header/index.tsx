@@ -1,9 +1,10 @@
 "use client";
 import { useLenis } from "lenis/react";
+import TransitionLink from "@/app/components/TransitionLink";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { MouseEvent } from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, ViewTransition } from "react";
 
 const ABOUT_ID = "about";
 const ABOUT_HASH = `#${ABOUT_ID}`;
@@ -20,39 +21,43 @@ export default function Header() {
 
   const scrollToAbout = useCallback(
     (attempt = 0) => {
-      const aboutSection = document.getElementById(ABOUT_ID);
+      const scroll = (nextAttempt: number) => {
+        const aboutSection = document.getElementById(ABOUT_ID);
 
-      if (!aboutSection) {
-        if (attempt >= ABOUT_SCROLL_RETRIES) {
+        if (!aboutSection) {
+          if (nextAttempt >= ABOUT_SCROLL_RETRIES) {
+            return;
+          }
+
+          window.setTimeout(() => {
+            scroll(nextAttempt + 1);
+          }, ABOUT_SCROLL_RETRY_DELAY);
+
           return;
         }
 
-        window.setTimeout(() => {
-          scrollToAbout(attempt + 1);
-        }, ABOUT_SCROLL_RETRY_DELAY);
+        window.history.replaceState(null, "", ABOUT_HASH);
 
-        return;
-      }
+        if (lenis) {
+          lenis.scrollTo(aboutSection, {
+            offset: ABOUT_OFFSET,
+            duration: 1.2,
+          });
+          return;
+        }
 
-      window.history.replaceState(null, "", ABOUT_HASH);
+        const top =
+          aboutSection.getBoundingClientRect().top +
+          window.scrollY +
+          ABOUT_OFFSET;
 
-      if (lenis) {
-        lenis.scrollTo(aboutSection, {
-          offset: ABOUT_OFFSET,
-          duration: 1.2,
+        window.scrollTo({
+          top,
+          behavior: "smooth",
         });
-        return;
-      }
+      };
 
-      const top =
-        aboutSection.getBoundingClientRect().top +
-        window.scrollY +
-        ABOUT_OFFSET;
-
-      window.scrollTo({
-        top,
-        behavior: "smooth",
-      });
+      scroll(attempt);
     },
     [lenis],
   );
@@ -119,12 +124,13 @@ export default function Header() {
         </div>
 
         <nav className="absolute left-1/2 -translate-x-1/2 uppercase flex gap-10 items-end backdrop-blur-md px-3 py-2 rounded-md">
-          <Link
-            className="active:text-primary text-base leading-none"
-            href={"/"}
+          <TransitionLink
+            className="relative active:text-primary text-base leading-none"
+            href="/"
           >
             Home
-          </Link>
+            {pathname === "/" ? <NavActive /> : null}
+          </TransitionLink>
 
           <Link
             className="active:text-primary text-base leading-none"
@@ -133,12 +139,13 @@ export default function Header() {
           >
             About
           </Link>
-          <Link
-            className="active:text-primary text-base leading-none"
-            href={"/work"}
+          <TransitionLink
+            className="relative active:text-primary text-base leading-none"
+            href="/work"
           >
             Work
-          </Link>
+            {pathname.startsWith("/work") ? <NavActive /> : null}
+          </TransitionLink>
         </nav>
         <Link
           href={"#"}
@@ -149,6 +156,14 @@ export default function Header() {
         </Link>
       </div>
     </header>
+  );
+}
+
+function NavActive() {
+  return (
+    <ViewTransition name="nav-active">
+      <span className="absolute -bottom-2 left-0 h-px w-full bg-primary/70" />
+    </ViewTransition>
   );
 }
 

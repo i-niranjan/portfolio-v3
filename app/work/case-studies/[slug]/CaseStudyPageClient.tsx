@@ -9,7 +9,7 @@ import { caseStudyMDXComponents } from "@/app/work/case-studies/[slug]/caseStudy
 import { getCaseStudyBySlug } from "@/content/case-studies";
 import { motion, useInView } from "motion/react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ViewTransition } from "react";
 
 interface CaseStudyPageClientProps {
   slug: string;
@@ -49,7 +49,13 @@ function StatsRow({ stats }: { stats: CaseStudyStat[] }) {
   );
 }
 
-function Hero({ metadata }: { metadata: CaseStudyMetadata }) {
+function Hero({
+  metadata,
+  slug,
+}: {
+  metadata: CaseStudyMetadata;
+  slug: string;
+}) {
   return (
     <div>
       <motion.div
@@ -58,14 +64,16 @@ function Hero({ metadata }: { metadata: CaseStudyMetadata }) {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className="relative mb-10 aspect-[21/8] w-full overflow-hidden rounded-[4px] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(255,255,255,0.07),0_40px_80px_rgba(0,0,0,0.7)]"
       >
-        <Image
-          fill
-          src={metadata.heroImage}
-          alt={metadata.title}
-          priority
-          className="object-cover"
-          style={{ transition: "transform 1.2s cubic-bezier(0.22,1,0.36,1)" }}
-        />
+        <ViewTransition name={`case-${metadata.slug}`}>
+          <Image
+            fill
+            src={metadata.heroImage}
+            alt={metadata.title}
+            priority
+            className="object-cover"
+            style={{ transition: "transform 1.2s cubic-bezier(0.22,1,0.36,1)" }}
+          />
+        </ViewTransition>
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(8,8,8,0.6)_100%)]" />
       </motion.div>
 
@@ -194,52 +202,6 @@ function Sidebar({
   );
 }
 
-// function TopNav({
-//   tags,
-//   visible,
-//   scrollProgress,
-// }: {
-//   tags: string[];
-//   visible: boolean;
-//   scrollProgress: number;
-// }) {
-//   return (
-//     <>
-//       <div className="fixed left-0 right-0 top-0 z-[1000] h-px bg-white/6">
-//         <div
-//           className="h-full bg-white/50 transition-[width] duration-100 ease-linear"
-//           style={{ width: `${scrollProgress * 100}%` }}
-//         />
-//       </div>
-
-//       <motion.nav
-//         animate={{ y: visible ? 0 : -64 }}
-//         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-//         className="fixed left-0 right-0 top-0 z-[999] flex h-[52px] items-center justify-between border-b border-white/6 bg-[rgba(8,8,8,0.8)] px-4 backdrop-blur-[24px] md:px-10"
-//       >
-//         <button
-//           type="button"
-//           onClick={() => window.history.back()}
-//           className="flex items-center gap-2 rounded-full bg-white/4 px-[13px] py-[5px] font-commit text-[11px] uppercase tracking-[0.1em] text-white/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_0_1px_rgba(255,255,255,0.07)] transition-colors duration-200 hover:bg-white/8 hover:text-white/80"
-//         >
-//           ← Back
-//         </button>
-
-//         <div className="hidden gap-1.5 md:flex">
-//           {tags.map((tag) => (
-//             <span
-//               key={tag}
-//               className="rounded-full bg-white/4 px-[10px] py-1 font-commit text-[10px] uppercase tracking-[0.1em] text-white/28 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_0_1px_rgba(255,255,255,0.06)]"
-//             >
-//               {tag}
-//             </span>
-//           ))}
-//         </div>
-//       </motion.nav>
-//     </>
-//   );
-// }
-
 export function CaseStudyPageClient({
   slug,
   metadata,
@@ -336,7 +298,7 @@ export function CaseStudyPageClient({
 
       <div className="pt-[52px]">
         <div className="mx-auto max-w-[1060px] px-4 pb-0 pt-10 md:px-10">
-          <Hero metadata={metadata} />
+          <Hero metadata={metadata} slug={slug} />
         </div>
 
         <div className="mx-auto flex max-w-[1060px] flex-col gap-10 px-4 pb-[120px] md:px-10 lg:flex-row lg:items-start lg:gap-[60px]">
