@@ -11,13 +11,10 @@ RUN corepack enable \
   && corepack prepare pnpm@9.15.9 --activate \
   && pnpm config set store-dir /pnpm/store
 
-FROM base AS deps
+FROM base AS builder
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=portfolio-v3-pnpm,target=/pnpm/store \
   pnpm fetch --frozen-lockfile
-
-FROM base AS builder
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=portfolio-v3-pnpm,target=/pnpm/store \
   pnpm install --offline --frozen-lockfile
 COPY . .
