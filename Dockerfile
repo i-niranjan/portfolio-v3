@@ -26,7 +26,8 @@ ENV NODE_ENV=production \
     HOSTNAME=0.0.0.0 \
     PORT=3000
 WORKDIR /app
-RUN addgroup -S nodejs \
+RUN apk add --no-cache curl \
+  && addgroup -S nodejs \
   && adduser -S nextjs -G nodejs
 
 COPY --from=builder /app/public ./public
