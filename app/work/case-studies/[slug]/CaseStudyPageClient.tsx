@@ -53,10 +53,8 @@ function StatsRow({ stats }: { stats: CaseStudyStat[] }) {
 
 function Hero({
   metadata,
-  slug,
 }: {
   metadata: CaseStudyMetadata;
-  slug: string;
 }) {
   return (
     <div>
@@ -227,25 +225,7 @@ export function CaseStudyPageClient({
   const Content = caseStudy?.Content;
   const [sections, setSections] = useState<TocSection[]>([]);
   const [activeSection, setActiveSection] = useState("");
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [navVisible, setNavVisible] = useState(true);
-  const lastScrollY = useRef(0);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const root = document.documentElement;
-      const progress = root.scrollTop / (root.scrollHeight - root.clientHeight);
-      setScrollProgress(Math.min(1, Math.max(0, progress)));
-      setNavVisible(
-        root.scrollTop < lastScrollY.current || root.scrollTop < 80,
-      );
-      lastScrollY.current = root.scrollTop;
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -315,7 +295,7 @@ export function CaseStudyPageClient({
 
       <div className="pt-[52px]">
         <div className="mx-auto max-w-[1060px] px-4 pb-0 pt-8 md:px-10 md:pt-10">
-          <Hero metadata={metadata} slug={slug} />
+          <Hero metadata={metadata} />
         </div>
 
         <div className="mx-auto flex max-w-[1060px] flex-col gap-8 px-4 pb-20 md:px-10 lg:flex-row lg:items-start lg:gap-[60px] lg:pb-[120px]">

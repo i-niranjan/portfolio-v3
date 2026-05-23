@@ -1,0 +1,229 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - text: 12:24 AM
+          - img [ref=e6]
+        - generic [ref=e32]:
+          - img [ref=e33]
+          - generic [ref=e58]: Hi, I'm Niranjan...
+      - navigation [ref=e59]:
+        - link "Home" [ref=e60] [cursor=pointer]:
+          - /url: /
+          - text: Home
+        - link "About" [ref=e62] [cursor=pointer]:
+          - /url: /#about
+        - link "Work" [ref=e63] [cursor=pointer]:
+          - /url: /work
+      - link "TALK" [ref=e64] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=e65]
+        - button "TALK" [ref=e98]
+  - main [ref=e99]:
+    - generic [ref=e101]:
+      - generic [ref=e104]:
+        - generic:
+          - generic:
+            - code:
+              - paragraph: "[BUILD SUCC00OO"
+              - paragraph
+              - paragraph
+              - paragraph
+        - generic [ref=e105]:
+          - heading "I help founders turn product ideas into scalable, production-ready systems." [level=1] [ref=e106]
+          - paragraph [ref=e107]: Because once real users start depending on a product, every technical decision matters. I build with that responsibility in mind.
+          - generic [ref=e108]:
+            - button "Schedule A Call" [ref=e109] [cursor=pointer]:
+              - generic [ref=e111]:
+                - text: Schedule A Call
+                - img [ref=e112]
+            - link "View Work" [ref=e124] [cursor=pointer]:
+              - /url: /work
+      - generic [ref=e126]:
+        - generic [ref=e128]:
+          - generic [ref=e129]:
+            - generic [ref=e130]: Core Stack
+            - generic [ref=e131]: Built for scale.
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - img [ref=e138]
+              - img [ref=e145]
+              - img [ref=e150]
+              - img [ref=e153]
+              - img [ref=e156]
+              - img [ref=e160]
+              - img "GSAP" [ref=e164]
+              - img [ref=e166]
+              - img [ref=e169]
+              - img [ref=e175]
+              - img [ref=e193]
+              - img [ref=e197]
+              - img [ref=e202]
+              - img [ref=e207]
+              - img [ref=e219]
+              - img [ref=e933]
+              - img [ref=e937]
+              - img [ref=e940]
+              - img [ref=e944]
+              - img [ref=e948]
+            - generic [ref=e951]:
+              - img [ref=e953]
+              - img [ref=e960]
+              - img [ref=e965]
+              - img [ref=e968]
+              - img [ref=e971]
+              - img [ref=e975]
+              - img "GSAP" [ref=e979]
+              - img [ref=e981]
+              - img [ref=e984]
+              - img [ref=e990]
+              - img [ref=e1008]
+              - img [ref=e1012]
+              - img [ref=e1017]
+              - img [ref=e1022]
+              - img [ref=e1034]
+              - img [ref=e1748]
+              - img [ref=e1752]
+              - img [ref=e1755]
+              - img [ref=e1759]
+              - img [ref=e1763]
+            - generic [ref=e1766]:
+              - img [ref=e1768]
+              - img [ref=e1775]
+              - img [ref=e1780]
+              - img [ref=e1783]
+              - img [ref=e1786]
+              - img [ref=e1790]
+              - img "GSAP" [ref=e1794]
+              - img [ref=e1796]
+              - img [ref=e1799]
+              - img [ref=e1805]
+              - img [ref=e1823]
+              - img [ref=e1827]
+              - img [ref=e1832]
+              - img [ref=e1837]
+              - img [ref=e1849]
+              - img [ref=e2563]
+              - img [ref=e2567]
+              - img [ref=e2570]
+              - img [ref=e2574]
+              - img [ref=e2578]
+            - generic [ref=e2581]:
+              - img [ref=e2583]
+              - img [ref=e2590]
+              - img [ref=e2595]
+              - img [ref=e2598]
+              - img [ref=e2601]
+              - img [ref=e2605]
+              - img "GSAP" [ref=e2609]
+              - img [ref=e2611]
+              - img [ref=e2614]
+              - img [ref=e2620]
+              - img [ref=e2638]
+              - img [ref=e2642]
+              - img [ref=e2647]
+              - img [ref=e2652]
+              - img [ref=e2664]
+              - img [ref=e3378]
+              - img [ref=e3382]
+              - img [ref=e3385]
+              - img [ref=e3389]
+              - img [ref=e3393]
+        - generic [ref=e3398]:
+          - generic [ref=e3399]: Niranjan Chaudhari
+          - generic [ref=e3400]: A Full Stack Developer
+        - generic [ref=e3403]:
+          - heading "About me" [level=2] [ref=e3404]
+          - generic [ref=e3405]:
+            - text: Hello. Enjoying the portfolio so far?
+            - text: Here's the quick version of me.
+            - text: I started development in 2024, building basic frontend websites and just figuring things out. Eventually moved into full-stack played around with headless WordPress + Next.js, built a lead CRM for a logistics company… and after that I kinda never stopped.
+            - text: Since then it's been ERP systems, event booking platforms, agency websites, parallax-heavy animated stuff, eCommerce with Medusa.
+            - text: Still building. Still learning. Still trying to do it better each time.
+        - generic [ref=e3406]:
+          - img "web asset" [ref=e3407]
+          - generic [ref=e3408]:
+            - generic [ref=e3409]:
+              - generic [ref=e3410]:
+                - img [ref=e3411]
+                - text: System Design
+              - generic [ref=e3413]:
+                - img [ref=e3414]
+                - text: DevOps & Tools
+              - generic [ref=e3416]:
+                - img [ref=e3417]
+                - text: Performance Tuning
+            - generic [ref=e3419]: Currently Exploring
+        - generic [ref=e3420]:
+          - generic [ref=e3422]:
+            - generic [ref=e3423]:
+              - generic [ref=e3424]: "0"
+              - img [ref=e3425]
+            - generic [ref=e3426]: Years of Experience
+          - generic [ref=e3428]:
+            - generic [ref=e3429]:
+              - generic [ref=e3430]: "0"
+              - img [ref=e3431]
+            - generic [ref=e3432]: Projects Shipped
+          - generic [ref=e3433]:
+            - generic [ref=e3434] [cursor=pointer]:
+              - img [ref=e3435]
+              - generic [ref=e3459]: Insights
+              - img [ref=e3460]
+            - generic [ref=e3469] [cursor=pointer]:
+              - img [ref=e3470]
+              - generic [ref=e3494]: Connect
+              - img [ref=e3495]
+            - generic [ref=e3504] [cursor=pointer]:
+              - img [ref=e3505]
+              - generic [ref=e3534]: Work
+              - img [ref=e3535]
+        - generic [ref=e3546]:
+          - generic [ref=e3547]:
+            - button [ref=e3548]:
+              - img
+            - button [ref=e3549]:
+              - img
+          - generic [ref=e3550]:
+            - heading "Recent Work" [level=3] [ref=e3551]
+            - text: Crafting Excellence
+        - generic [ref=e3554]:
+          - generic [ref=e3555]: Based In India
+          - generic [ref=e3556]:
+            - img [ref=e3557]
+            - text: Available Worldwide
+  - contentinfo [ref=e3585]:
+    - generic [ref=e3588]:
+      - generic [ref=e3589]:
+        - generic [ref=e3590]:
+          - img [ref=e3591]
+          - generic [ref=e3595]: Socials
+        - generic [ref=e3596]:
+          - link "Github" [ref=e3597] [cursor=pointer]:
+            - /url: https://github.com/i-niranjan
+          - link "LinkedIn" [ref=e3598] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/niranjan-chaudhari-26157b194/
+          - link "X (Twitter)" [ref=e3599] [cursor=pointer]:
+            - /url: https://x.com/imniranjann
+      - generic [ref=e3600]:
+        - generic [ref=e3601]:
+          - img [ref=e3602]
+          - generic [ref=e3606]: Contact
+        - link [ref=e3607] [cursor=pointer]:
+          - /url: mailto:iniranjanchaudhari@gmail.com
+          - img
+    - generic [ref=e3608]:
+      - generic [ref=e3609]:
+        - generic [ref=e3610]:
+          - img [ref=e3611]
+          - generic [ref=e3615]: Explore
+        - generic [ref=e3616]:
+          - link "About Me" [ref=e3617] [cursor=pointer]:
+            - /url: /#about
+          - link "Work" [ref=e3618] [cursor=pointer]:
+            - /url: /work
+      - button "Schedule A Call" [ref=e3620] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e3626] [cursor=pointer]:
+    - img [ref=e3627]
+  - alert [ref=e3630]

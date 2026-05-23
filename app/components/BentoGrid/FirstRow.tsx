@@ -5,9 +5,12 @@ import * as StackIcons from "./StackIcons";
 import Image from "next/image";
 
 const GsapIcon = () => (
-  <img
+  <Image
     src={"/assets/gif/gsap-logo.gif"}
     alt="GSAP"
+    width={48}
+    height={48}
+    unoptimized
     className="w-full h-full object-cover"
   />
 );

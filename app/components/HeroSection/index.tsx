@@ -4,12 +4,6 @@ import ScheduleCallButton from "./ScheduleCallButton";
 import Container from "@/components/container";
 import TransitionLink from "@/app/components/TransitionLink";
 
-const proofPoints = [
-  "2+ Years Building",
-  "8+ Projects Shipped",
-  "Available Worldwide",
-];
-
 export default function HeroSection() {
   return (
     <Container>

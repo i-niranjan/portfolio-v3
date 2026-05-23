@@ -1,5 +1,4 @@
 import Container from "@/components/container";
-import clsx from "clsx";
 import React from "react";
 import FirstRow from "./FirstRow";
 import { ArrowRight, Plus } from "lucide-react";
