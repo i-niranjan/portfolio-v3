@@ -71,11 +71,11 @@ export default function DoubleLineGridOverlay({
             const travel = gsap.utils.random(3.5, 7);
             const tl = gsap.timeline({
               onComplete: () => {
-                gsap.delayedCall(gsap.utils.random(2.5, 7), run);
+                gsap.delayedCall(gsap.utils.random(1, 4), run);
               },
             });
             tl.to(beam, {
-              opacity: gsap.utils.random(0.4, 0.75),
+              opacity: gsap.utils.random(0.6, 0.9),
               duration: 0.5,
               ease: "sine.out",
             })
@@ -133,7 +133,7 @@ export default function DoubleLineGridOverlay({
                     style={{
                       background:
                         "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.85) 50%, transparent 100%)",
-                      boxShadow: "0 0 6px rgba(255,255,255,0.45)",
+                      boxShadow: "0 0 12px rgba(255,255,255,0.45)",
                       opacity: 0,
                     }}
                   />

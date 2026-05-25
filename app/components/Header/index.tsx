@@ -7,6 +7,7 @@ import type { MouseEvent } from "react";
 import { useCallback, useEffect, useState, ViewTransition } from "react";
 import CalButton from "@/components/cal-modal";
 import { Button } from "@/components/ui/button";
+import MagneticHover from "@/app/components/effects/MagneticHover";
 
 const ABOUT_ID = "about";
 const ABOUT_HASH = `#${ABOUT_ID}`;
@@ -127,47 +128,52 @@ export default function Header() {
 
         <nav className="flex items-end gap-6 rounded-md px-3 py-2 uppercase backdrop-blur-md sm:gap-8 md:absolute md:left-1/2 md:-translate-x-1/2 md:gap-10">
           <TransitionLink
-            className="relative text-sm leading-none active:text-primary sm:text-base"
+            className="group relative text-sm leading-none transition-colors hover:text-primary active:text-primary sm:text-base"
             href="/"
           >
             Home
+            <NavHoverLine />
             {pathname === "/" ? <NavActive /> : null}
           </TransitionLink>
 
           <Link
-            className="text-sm leading-none active:text-primary sm:text-base"
+            className="group relative text-sm leading-none transition-colors hover:text-primary active:text-primary sm:text-base"
             href={"/#about"}
             onClick={handleAboutClick}
           >
             About
+            <NavHoverLine />
           </Link>
           <TransitionLink
-            className="relative text-sm leading-none active:text-primary sm:text-base"
+            className="group relative text-sm leading-none transition-colors hover:text-primary active:text-primary sm:text-base"
             href="/work"
           >
             Work
+            <NavHoverLine />
             {pathname.startsWith("/work") ? <NavActive /> : null}
           </TransitionLink>
         </nav>
-        <Link
-          href={"#"}
-          className="text-primary z-10 hidden items-center gap-2 leading-none text-base md:flex"
-        >
-          <TelePhone />{" "}
-          <span className="leading-none  block translate-y-[1px]">
-            <CalButton>
-              <Button
-                className="p-0"
-                variant={"link"}
-                data-cal-namespace="30min"
-                data-cal-link="iniranjan/30min"
-                data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'
-              >
-                TALK
-              </Button>
-            </CalButton>
-          </span>
-        </Link>
+        <MagneticHover strength={0.3}>
+          <Link
+            href={"#"}
+            className="text-primary z-10 hidden items-center gap-2 leading-none text-base transition-colors hover:text-white md:flex"
+          >
+            <TelePhone />{" "}
+            <span className="leading-none  block translate-y-[1px]">
+              <CalButton>
+                <Button
+                  className="p-0"
+                  variant={"link"}
+                  data-cal-namespace="30min"
+                  data-cal-link="iniranjan/30min"
+                  data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'
+                >
+                  TALK
+                </Button>
+              </CalButton>
+            </span>
+          </Link>
+        </MagneticHover>
       </div>
     </header>
   );
@@ -178,6 +184,12 @@ function NavActive() {
     <ViewTransition name="nav-active">
       <span className="absolute -bottom-2 left-0 h-px w-full bg-primary/70" />
     </ViewTransition>
+  );
+}
+
+function NavHoverLine() {
+  return (
+    <span className="pointer-events-none absolute -bottom-2 left-1/2 h-px w-0 -translate-x-1/2 bg-primary/60 transition-all duration-300 group-hover:w-full" />
   );
 }
 

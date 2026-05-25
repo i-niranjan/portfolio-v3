@@ -2,6 +2,7 @@ import CalButton from "@/components/cal-modal";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
+import MagneticHover from "@/app/components/effects/MagneticHover";
 
 export default function Footer() {
   const SocialLinks = [
@@ -36,76 +37,79 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-6 md:gap-0 md:py-16 lg:h-120 lg:px-0">
-      <div className="relative min-h-64 bg-[url('/assets/chrome51.png')] bg-contain bg-no-repeat md:col-span-2 md:ml-4 md:min-h-0">
+    <footer className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:px-6 md:grid-cols-12 md:gap-x-6 md:gap-y-10 md:py-16 lg:px-0">
+      <div className="relative min-h-64 bg-[url('/assets/chrome51.png')] bg-contain bg-no-repeat md:col-span-4 md:ml-4 md:min-h-0">
         <div className="absolute left-0 top-0 h-full w-full max-w-100 bg-linear-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-black/0"></div>
       </div>
-      <div className="px-2 space-y-8">
-        <div className="space-y-3 ">
-          <span className="flex gap-3 items-center">
-            <RightArrowIcon /> <span className="text-xl">Socials</span>
-          </span>
-          <div className="pl-3 flex flex-col items-start min-h-35">
-            {SocialLinks.map((i, index) => (
+
+      <div className="space-y-3 px-2 md:col-span-2">
+        <span className="flex gap-3 items-center">
+          <RightArrowIcon /> <span className="text-xl">Socials</span>
+        </span>
+        <div className="pl-3 flex flex-col items-start">
+          {SocialLinks.map((i, index) => (
+            <MagneticHover key={index} strength={0.2}>
               <Button
-                key={index}
                 variant={"link"}
-                className="uppercase text-sm text-white/30 underline"
+                className="uppercase text-sm text-white/30 underline transition-colors hover:text-primary"
                 asChild
               >
                 <Link href={i.link} target="_blank" rel="noopener noreferrer">
                   {i.text}
                 </Link>
               </Button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <span className="flex gap-3 items-center">
-            <RightArrowIcon /> <span className="text-xl">Contact</span>
-          </span>
-
-          <Button
-            variant={"ghost"}
-            size={"icon"}
-            className=" text-xl ml-7  text-primary "
-            asChild
-          >
-            <Link href={"mailto:iniranjanchaudhari@gmail.com"} className="">
-              <MailIcon />
-            </Link>
-          </Button>
+            </MagneticHover>
+          ))}
         </div>
       </div>
-      <div className="space-y-8">
-        <div className="space-y-3 px-2 ">
-          <span className="flex gap-3 items-center">
-            <RightArrowIcon /> <span className="text-xl">Explore</span>
-          </span>
-          <div className="pl-3 flex flex-col items-start min-h-35">
-            {explore.map((i, index) => (
+
+      <div className="space-y-3 px-2 md:col-span-2">
+        <span className="flex gap-3 items-center">
+          <RightArrowIcon /> <span className="text-xl">Explore</span>
+        </span>
+        <div className="pl-3 flex flex-col items-start">
+          {explore.map((i, index) => (
+            <MagneticHover key={index} strength={0.2}>
               <Button
-                key={index}
                 variant={"link"}
-                className="uppercase text-sm text-white/30 underline"
+                className="uppercase text-sm text-white/30 underline transition-colors hover:text-primary"
                 asChild
               >
                 <Link href={i.url}>{i.text}</Link>
               </Button>
-            ))}
-          </div>
+            </MagneticHover>
+          ))}
         </div>
+      </div>
 
-        <div className="space-y-3 px-2">
+      <div className="space-y-4 px-2 md:col-span-4">
+        <span className="flex gap-3 items-center">
+          <RightArrowIcon /> <span className="text-xl">Contact</span>
+        </span>
+        <div className="pl-7 flex flex-col gap-2">
+          <Link
+            href={"mailto:iniranjanchaudhari@gmail.com"}
+            className="group inline-flex items-center gap-2.5 text-sm text-white/70 transition-colors hover:text-primary"
+          >
+            <span className="text-primary [&_svg]:size-4">
+              <MailIcon />
+            </span>
+            <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-primary">
+              iniranjanchaudhari@gmail.com
+            </span>
+          </Link>
+          <span className="text-xs text-white/35">
+            Usually replies within a day.
+          </span>
+        </div>
+        <div className="pl-7 pt-2">
           <CalButton>
             <Button
               data-cal-namespace="30min"
               data-cal-link="iniranjan/30min"
               data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"}'
               variant={"ghost"}
-              size={"icon"}
-              className="cursor-pointer text-sm px-0 text-white rounded-sm! h-16 glass-frosted w-[98%]"
+              className="glass-frosted h-12 w-full max-w-xs cursor-pointer rounded-md text-sm text-white"
             >
               Schedule A Call
             </Button>
@@ -139,8 +143,6 @@ const RightArrowIcon = () => (
 const MailIcon = () => (
   <svg
     className="size-6"
-    width="100px"
-    height="auto"
     viewBox="0 0 32 26"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

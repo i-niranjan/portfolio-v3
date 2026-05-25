@@ -61,7 +61,7 @@ export default function FirstRow() {
 
 const IconBox = ({ children }: React.PropsWithChildren) => {
   return (
-    <div className=" flex items-center justify-center   rounded-md border glass-icon w-12 h-12 p-2">
+    <div className="group flex h-12 w-12 items-center justify-center rounded-md border glass-icon p-2 grayscale-[0.85] opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_0_12px_rgba(173,145,234,0.25)]">
       {children}
     </div>
   );

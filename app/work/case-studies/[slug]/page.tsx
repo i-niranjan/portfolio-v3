@@ -1,6 +1,7 @@
 import { CaseStudyPageClient } from "@/app/work/case-studies/[slug]/CaseStudyPageClient";
+import { JsonLd } from "@/app/components/JsonLd";
 import { getAllCaseStudies, getCaseStudyBySlug } from "@/content/case-studies";
-import { absoluteUrl, siteConfig } from "@/lib/seo";
+import { absoluteUrl, caseStudyJsonLd, siteConfig } from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -76,5 +77,22 @@ export default async function CaseStudyPage({ params }: PageProps) {
     notFound();
   }
 
-  return <CaseStudyPageClient slug={slug} metadata={caseStudy.metadata} />;
+  const { metadata } = caseStudy;
+  const jsonLd = caseStudyJsonLd({
+    slug: metadata.slug,
+    title: metadata.title,
+    description: metadata.description,
+    image: metadata.coverImage || metadata.heroImage,
+    year: metadata.year,
+    client: metadata.client,
+    role: metadata.role,
+    tags: metadata.tags,
+  });
+
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <CaseStudyPageClient slug={slug} metadata={caseStudy.metadata} />
+    </>
+  );
 }

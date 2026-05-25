@@ -3,6 +3,7 @@ import TerminalText from "./TerminalText";
 import ScheduleCallButton from "./ScheduleCallButton";
 import Container from "@/components/container";
 import TransitionLink from "@/app/components/TransitionLink";
+import MagneticHover from "@/app/components/effects/MagneticHover";
 
 export default function HeroSection() {
   return (
@@ -40,15 +41,42 @@ export default function HeroSection() {
               mind.
             </p>
 
-            <div className="flex flex-col items-center gap-5 pt-2">
+            <div className="flex flex-col items-center gap-4 pt-2 sm:flex-row sm:gap-5">
               <ScheduleCallButton />
-              <TransitionLink
-                href="/work"
-                className="group inline-flex items-center gap-3 text-xs uppercase tracking-[0.32em] text-white/40 transition-colors hover:text-white/70"
-              >
-                View Work
-              </TransitionLink>
+              <MagneticHover strength={0.25}>
+                <TransitionLink
+                  href="/work"
+                  className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-[10px] border border-white/15 bg-white/[0.02] px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/70 transition-colors hover:border-white/35 hover:bg-white/[0.05] hover:text-white sm:px-6 sm:py-3.5 sm:text-[13px] sm:tracking-[0.24em]"
+                >
+                  <span>View Work</span>
+                  <svg
+                    width="14"
+                    height="10"
+                    viewBox="0 0 14 10"
+                    fill="none"
+                    className="transition-transform group-hover:translate-x-1"
+                  >
+                    <path
+                      d="M1 5h11M8 1l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="square"
+                      fill="none"
+                    />
+                  </svg>
+                </TransitionLink>
+              </MagneticHover>
             </div>
+          </div>
+
+          <div className="pointer-events-none absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/35 md:flex">
+            <span className="text-[10px] uppercase tracking-[0.4em]">
+              Scroll
+            </span>
+            <span className="relative block h-8 w-px overflow-hidden">
+              <span className="absolute inset-x-0 top-0 h-full bg-white/15" />
+              <span className="absolute inset-x-0 top-0 h-3 animate-[scrollCue_2s_ease-in-out_infinite] bg-gradient-to-b from-transparent via-white/80 to-transparent" />
+            </span>
           </div>
         </div>
       </section>

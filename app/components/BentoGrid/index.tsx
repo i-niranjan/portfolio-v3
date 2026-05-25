@@ -5,22 +5,28 @@ import { ArrowRight, Plus } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { NumberTicker } from "@/components/ui/number-ticker";
-import { Button } from "@/components/ui/button";
 import { Globe } from "@/components/ui/globe";
+import TransitionLink from "@/app/components/TransitionLink";
+import { getProjectCards } from "@/content/case-studies";
+import CardSpotlight from "@/app/components/effects/CardSpotlight";
+import ScrollReveal from "@/app/components/effects/ScrollReveal";
 
 export default function BentoGrid() {
+  const recentProjects = getProjectCards().slice(0, 3);
   return (
     <Container>
-      <div
-        id="about"
-        className="grid min-h-screen scroll-mt-32 grid-cols-1 gap-x-2.5 gap-y-5 py-16 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[auto_1fr_1fr] lg:py-20"
-      >
+      <ScrollReveal>
+        <div
+          id="about"
+          className="grid min-h-screen scroll-mt-32 grid-cols-1 gap-x-2.5 gap-y-5 py-16 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[auto_1fr_1fr] lg:py-20"
+        >
         <Column className="md:col-span-6 lg:col-span-12">
           <FirstRow />
         </Column>
 
         <Column
           bgVariant="plainBlack"
+          tilt={4}
           className="min-h-[420px] bg-[url(/assets/portrait-image.jpg)] bg-cover bg-center md:col-span-3 lg:col-span-4 lg:min-h-0"
         >
           <div className="flex h-full w-full items-end p-6">
@@ -119,25 +125,66 @@ export default function BentoGrid() {
             </Column>
           </div>
         </div>
-        <Column className="min-h-[320px] pt-18 md:col-span-4 lg:col-span-4 lg:min-h-0">
-          <div className="w-full h-full bg-[url('/assets/brand-slide/indinite-slide.png')] bg-cover flex items-end">
-            <div className="p-4 flex justify-between w-full items-end">
-              <div className="space-x-2">
-                <Button size={"icon-sm"} variant={"ghost"}>
-                  <LeftArrow />
-                </Button>
-                <Button size={"icon-sm"} variant={"ghost"}>
-                  <RightArrow />
-                </Button>
-              </div>
-              <div className="text-right">
-                <h3 className="text-xl">Recent Work</h3>
-                <span className="text-sm text-white/50">
-                  Crafting Excellence
+        <Column
+          tilt={3}
+          className="group/work min-h-[320px] md:col-span-4 lg:col-span-4 lg:min-h-0"
+        >
+          <TransitionLink
+            href="/work"
+            className="relative block h-full w-full overflow-hidden"
+          >
+            <div
+              className="absolute inset-0 bg-[url('/assets/brand-slide/indinite-slide.png')] bg-cover transition-transform duration-700 group-hover/work:scale-105"
+              aria-hidden
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/0"
+              aria-hidden
+            />
+
+            <div className="relative flex h-full w-full flex-col justify-between p-5">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(173,145,234,0.8)]" />
+                  <span className="text-[10px] uppercase tracking-[0.28em] text-white/50">
+                    Selected
+                  </span>
+                </div>
+                <span className="text-[10px] uppercase tracking-[0.28em] text-white/40 transition-colors group-hover/work:text-primary">
+                  View All →
                 </span>
               </div>
+
+              <div className="space-y-3">
+                <div className="space-y-1.5">
+                  {recentProjects.map((project) => (
+                    <div
+                      key={project.slug}
+                      className="flex items-center justify-between gap-3 border-b border-white/5 pb-1.5 text-sm last:border-0"
+                    >
+                      <span className="truncate text-white/85">
+                        {project.title}
+                      </span>
+                      <span className="shrink-0 text-[11px] uppercase tracking-wider text-white/35">
+                        {project.year}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-end justify-between pt-1">
+                  <div>
+                    <h3 className="text-xl">Recent Work</h3>
+                    <span className="text-sm text-white/50">
+                      Crafting Excellence
+                    </span>
+                  </div>
+                  <span className="text-primary transition-transform group-hover/work:translate-x-1">
+                    <RightArrow />
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
+          </TransitionLink>
         </Column>
         <Column className="relative min-h-[360px] md:col-span-6 lg:col-span-6 lg:min-h-0">
           <div className="relative h-full w-full">
@@ -150,7 +197,8 @@ export default function BentoGrid() {
             <Globe className="top-25" />
           </div>
         </Column>
-      </div>
+        </div>
+      </ScrollReveal>
     </Container>
   );
 }
@@ -159,13 +207,18 @@ const Column = ({
   children,
   className,
   bgVariant = "gradient",
+  spotlight = true,
+  tilt = 0,
 }: {
   children?: React.ReactNode;
   className?: string;
   bgVariant?: "plainBlack" | "gradient";
+  spotlight?: boolean;
+  tilt?: number;
 }) => {
   return (
     <div
+      data-reveal
       className={cn(
         className,
         "glass-frosted relative overflow-hidden rounded-xl ",
@@ -174,6 +227,7 @@ const Column = ({
           : "bg-black",
       )}
     >
+      {spotlight && <CardSpotlight tilt={tilt} />}
       {children}
     </div>
   );
@@ -511,32 +565,6 @@ const ArrowIcon = () => (
       fill="#AD91EA"
     />
     <path d="M1.52 6.1001H0V7.6201H1.52V6.1001Z" fill="#AD91EA" />
-  </svg>
-);
-
-const LeftArrow = () => (
-  <svg
-    width="19"
-    height="19"
-    viewBox="0 0 19 19"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M9.19239 18.1743L11.4341 15.9325L6.83792 11.3363L9.09439 9.07986L6.80383 6.7893L11.2873 2.30584L8.98166 0.000209723L0 8.98186L9.19239 18.1743Z"
-      fill="#AD91EA"
-      fillOpacity="0.9"
-    />
-    <path
-      d="M9.09443 9.0798L11.4001 11.3854L13.6418 9.14371L11.3362 6.83807L9.09443 9.0798Z"
-      fill="#AD91EA"
-      fillOpacity="0.9"
-    />
-    <path
-      d="M13.6418 9.14321L15.9324 11.4338L18.1741 9.19205L15.8836 6.90148L13.6418 9.14321Z"
-      fill="#AD91EA"
-      fillOpacity="0.9"
-    />
   </svg>
 );
 

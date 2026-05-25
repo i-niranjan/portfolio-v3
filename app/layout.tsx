@@ -7,7 +7,8 @@ import "lenis/dist/lenis.css";
 import "@/css/glass.css";
 import LenisProvider from "@/app/components/lenis-provider";
 import RouteTransitionShell from "@/app/components/RouteTransitionShell";
-import { absoluteUrl, siteConfig } from "@/lib/seo";
+import { JsonLd } from "@/app/components/JsonLd";
+import { personJsonLd, siteConfig, websiteJsonLd } from "@/lib/seo";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -45,21 +46,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [
-      {
-        url: absoluteUrl(siteConfig.ogImage),
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    creator: "@imniranjann",
-    images: [absoluteUrl(siteConfig.ogImage)],
+    creator: siteConfig.twitter,
   },
   robots: {
     index: true,
@@ -82,6 +74,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={` ${inter.variable} antialiased  relative`}>
+        <JsonLd data={[personJsonLd(), websiteJsonLd()]} />
         <LenisProvider>
           <Header />
 

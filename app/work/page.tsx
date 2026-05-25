@@ -1,6 +1,6 @@
 import { ProjectsClient } from "@/app/work/ProjectsClient";
 import { getProjectCards } from "@/content/case-studies";
-import { absoluteUrl, siteConfig } from "@/lib/seo";
+import { siteConfig } from "@/lib/seo";
 import type { Metadata } from "next";
 
 const title = "Selected Work";
@@ -19,20 +19,11 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${title} | ${siteConfig.name}`,
     description,
-    images: [
-      {
-        url: absoluteUrl(siteConfig.ogImage),
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name} selected work`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${title} | ${siteConfig.name}`,
     description,
-    images: [absoluteUrl(siteConfig.ogImage)],
   },
 };
 

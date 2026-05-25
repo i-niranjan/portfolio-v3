@@ -207,6 +207,20 @@
   }
 }
 
+@keyframes scrollCue {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
 ::view-transition-old(route-content),
 ::view-transition-new(route-content) {
   animation-duration: 360ms;
