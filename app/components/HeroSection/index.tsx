@@ -36,9 +36,8 @@ export default function HeroSection() {
             </h1>
 
             <p className="max-w-2xl text-center text-sm font-normal leading-7 text-white sm:text-base sm:leading-normal">
-              Because once real users start depending on a product, every
-              technical decision matters. I build with that responsibility in
-              mind.
+              Fast-moving products create technical problems nobody plans for. I
+              enjoy figuring out the tradeoffs and making things work.{" "}
             </p>
 
             <div className="flex flex-col items-center gap-4 pt-2 sm:flex-row sm:gap-5">

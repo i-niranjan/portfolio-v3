@@ -1,6 +1,7 @@
 import Container from "@/components/container";
 import React from "react";
 import FirstRow from "./FirstRow";
+import TerminalReadout from "./TerminalReadout";
 import { ArrowRight, Plus } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -20,183 +21,182 @@ export default function BentoGrid() {
           id="about"
           className="grid min-h-screen scroll-mt-32 grid-cols-1 gap-x-2.5 gap-y-5 py-16 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[auto_1fr_1fr] lg:py-20"
         >
-        <Column className="md:col-span-6 lg:col-span-12">
-          <FirstRow />
-        </Column>
-
-        <Column
-          bgVariant="plainBlack"
-          tilt={4}
-          className="min-h-[420px] bg-[url(/assets/portrait-image.jpg)] bg-cover bg-center md:col-span-3 lg:col-span-4 lg:min-h-0"
-        >
-          <div className="flex h-full w-full items-end p-6">
-            <div
-              className=" z-10
-        w-full flex flex-col gap-1"
-            >
-              <span className="text-white text-2xl font-bold">
-                Niranjan Chaudhari
-              </span>
-              <span className="text-white/50 text-base">
-                A Full Stack Developer
-              </span>
-            </div>
-          </div>
-          <div className="h-40 w-full absolute bg-linear-to-t from-black via-black/70 to-black/0 bottom-0"></div>
-        </Column>
-        <Column className="md:col-span-3 lg:col-span-5">
-          <div className="flex h-full w-full flex-col gap-2 p-6 text-xl">
-            <h2>About me</h2>
-            <span className="text-sm text-white/50">
-              Hello. Enjoying the portfolio so far?
-              <br />
-              Here&apos;s the quick version of me. <br />
-              <br />I started development in 2024, building basic frontend
-              websites and just figuring things out. Eventually moved into
-              full-stack played around with headless WordPress + Next.js, built
-              a lead CRM for a logistics company… and after that I kinda never
-              stopped. <br />
-              <br /> Since then it&apos;s been ERP systems, event booking
-              platforms, agency websites, parallax-heavy animated stuff,
-              eCommerce with Medusa.
-              <br />
-              <br /> Still building. Still learning. Still trying to do it
-              better each time.
-            </span>
-          </div>
-        </Column>
-        <Column className="relative min-h-[300px] p-6 md:col-span-6 lg:col-span-3 lg:min-h-0">
-          <Image
-            className="absolute right-0 top-0 z-10 h-auto w-36 animate-pulse sm:w-[200px]"
-            src={"/assets/web-asset.png"}
-            height={200}
-            width={200}
-            alt="web asset"
-          />
-          <div className="flex h-full w-full flex-col justify-end gap-13">
-            <div className="space-y-4">
-              {["System Design", "DevOps & Tools", "Performance Tuning"].map(
-                (i, index) => {
-                  return <ListLine text={i} key={index} />;
-                },
-              )}
-            </div>
-            <span className="text-xl">Currently Exploring</span>
-          </div>
-        </Column>
-
-        <div className="flex flex-col gap-4 md:col-span-2 lg:col-span-2">
-          <Column bgVariant="plainBlack" className="h-30">
-            <div className="flex flex-col gap-2 items-center justify-center w-full h-full">
-              <div className="font-bold text-5xl flex items-center ">
-                <NumberTicker value={2} className="text-5xl font-bold" />
-                <Plus className="size-8" />
-              </div>
-              <span className=" font-semibold">Years of Experience</span>
-            </div>
+          <Column className="md:col-span-6 lg:col-span-12">
+            <FirstRow />
           </Column>
-          <Column bgVariant="plainBlack" className="h-30">
-            <div className="flex flex-col gap-2 items-center justify-center w-full h-full">
-              <div className="font-bold text-5xl flex items-center ">
-                <NumberTicker value={8} className="text-5xl font-bold" />{" "}
-                <Plus className="size-8" />
-              </div>
-              <span className=" font-semibold">Projects Shipped</span>
-            </div>
-          </Column>
-          <div className="space-y-2">
-            <Column
-              className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
-              bgVariant="plainBlack"
-            >
-              <BookIcon /> <span>Insights</span> <ArrowIcon />
-            </Column>
-            <Column
-              className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
-              bgVariant="plainBlack"
-            >
-              <PhoneIcon /> <span>Connect</span> <ArrowIcon />
-            </Column>
-            <Column
-              className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
-              bgVariant="plainBlack"
-            >
-              <RocketIcon /> <span>Work</span> <ArrowIcon />
-            </Column>
-          </div>
-        </div>
-        <Column
-          tilt={3}
-          className="group/work min-h-[320px] md:col-span-4 lg:col-span-4 lg:min-h-0"
-        >
-          <TransitionLink
-            href="/work"
-            className="relative block h-full w-full overflow-hidden"
+
+          <Column
+            bgVariant="plainBlack"
+            tilt={4}
+            className="min-h-[420px] bg-[url(/assets/portrait-image.jpg)] bg-cover bg-center md:col-span-3 lg:col-span-4 lg:min-h-0"
           >
-            <div
-              className="absolute inset-0 bg-[url('/assets/brand-slide/indinite-slide.png')] bg-cover transition-transform duration-700 group-hover/work:scale-105"
-              aria-hidden
-            />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/0"
-              aria-hidden
-            />
-
-            <div className="relative flex h-full w-full flex-col justify-between p-5">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(173,145,234,0.8)]" />
-                  <span className="text-[10px] uppercase tracking-[0.28em] text-white/50">
-                    Selected
-                  </span>
-                </div>
-                <span className="text-[10px] uppercase tracking-[0.28em] text-white/40 transition-colors group-hover/work:text-primary">
-                  View All →
+            <div className="flex h-full w-full items-end p-6">
+              <div
+                className=" z-10
+        w-full flex flex-col gap-1"
+              >
+                <span className="text-white text-2xl font-bold">
+                  Niranjan Chaudhari
+                </span>
+                <span className="text-white/50 text-base">
+                  A Full Stack Developer
                 </span>
               </div>
+            </div>
+            <div className="h-40 w-full absolute bg-linear-to-t from-black via-black/70 to-black/0 bottom-0"></div>
+          </Column>
+          <Column className="md:col-span-3 lg:col-span-5">
+            <div className="flex h-full w-full flex-col justify-between gap-2 p-6 text-xl">
+              <div className="flex flex-col gap-2">
+                <h2>About me</h2>
+                <span className="text-sm text-white/50">
+                  I’m a full-stack engineer who enjoys solving problems and
+                  building systems that hold up beyond the first release.
+                  <br />
+                  <br /> I care about structure, maintainability, and
+                  understanding the tradeoffs behind technical decisions — not
+                  just shipping features.
+                  <br /> <br />
+                  Somewhere between debugging production issues and rebuilding
+                  things for the third time, I realized I genuinely enjoy the
+                  process.
+                </span>
+              </div>
+              <TerminalReadout />
+            </div>
+          </Column>
+          <Column className="relative min-h-[300px] p-6 md:col-span-6 lg:col-span-3 lg:min-h-0">
+            <Image
+              className="absolute right-0 top-0 z-10 h-auto w-36 animate-pulse sm:w-[200px]"
+              src={"/assets/web-asset.png"}
+              height={200}
+              width={200}
+              alt="web asset"
+            />
+            <div className="flex h-full w-full flex-col justify-end gap-13">
+              <div className="space-y-4">
+                {["System Design", "DevOps & Tools", "Performance Tuning"].map(
+                  (i, index) => {
+                    return <ListLine text={i} key={index} />;
+                  },
+                )}
+              </div>
+              <span className="text-xl">Currently Exploring</span>
+            </div>
+          </Column>
 
-              <div className="space-y-3">
-                <div className="space-y-1.5">
-                  {recentProjects.map((project) => (
-                    <div
-                      key={project.slug}
-                      className="flex items-center justify-between gap-3 border-b border-white/5 pb-1.5 text-sm last:border-0"
-                    >
-                      <span className="truncate text-white/85">
-                        {project.title}
-                      </span>
-                      <span className="shrink-0 text-[11px] uppercase tracking-wider text-white/35">
-                        {project.year}
-                      </span>
-                    </div>
-                  ))}
+          <div className="flex flex-col gap-4 md:col-span-2 lg:col-span-2">
+            <Column bgVariant="plainBlack" className="h-30">
+              <div className="flex flex-col gap-2 items-center justify-center w-full h-full">
+                <div className="font-bold text-5xl flex items-center ">
+                  <NumberTicker value={2} className="text-5xl font-bold" />
+                  <Plus className="size-8" />
                 </div>
-                <div className="flex items-end justify-between pt-1">
-                  <div>
-                    <h3 className="text-xl">Recent Work</h3>
-                    <span className="text-sm text-white/50">
-                      Crafting Excellence
+                <span className=" font-semibold">Years of Experience</span>
+              </div>
+            </Column>
+            <Column bgVariant="plainBlack" className="h-30">
+              <div className="flex flex-col gap-2 items-center justify-center w-full h-full">
+                <div className="font-bold text-5xl flex items-center ">
+                  <NumberTicker value={8} className="text-5xl font-bold" />{" "}
+                  <Plus className="size-8" />
+                </div>
+                <span className=" font-semibold">Projects Shipped</span>
+              </div>
+            </Column>
+            <div className="space-y-2">
+              <Column
+                className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
+                bgVariant="plainBlack"
+              >
+                <BookIcon /> <span>Insights</span> <ArrowIcon />
+              </Column>
+              <Column
+                className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
+                bgVariant="plainBlack"
+              >
+                <PhoneIcon /> <span>Connect</span> <ArrowIcon />
+              </Column>
+              <Column
+                className="flex w-full cursor-pointer items-center gap-3 rounded-md! px-3 py-2 transition-all hover:scale-105 sm:w-max"
+                bgVariant="plainBlack"
+              >
+                <RocketIcon /> <span>Work</span> <ArrowIcon />
+              </Column>
+            </div>
+          </div>
+          <Column
+            tilt={3}
+            className="group/work min-h-[320px] md:col-span-4 lg:col-span-4 lg:min-h-0"
+          >
+            <TransitionLink
+              href="/work"
+              className="relative block h-full w-full overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 bg-[url('/assets/brand-slide/indinite-slide.png')] bg-cover transition-transform duration-700 group-hover/work:scale-105"
+                aria-hidden
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/0"
+                aria-hidden
+              />
+
+              <div className="relative flex h-full w-full flex-col justify-between p-5">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(173,145,234,0.8)]" />
+                    <span className="text-[10px] uppercase tracking-[0.28em] text-white/50">
+                      Selected
                     </span>
                   </div>
-                  <span className="text-primary transition-transform group-hover/work:translate-x-1">
-                    <RightArrow />
+                  <span className="text-[10px] uppercase tracking-[0.28em] text-white/40 transition-colors group-hover/work:text-primary">
+                    View All →
                   </span>
                 </div>
+
+                <div className="space-y-3">
+                  <div className="space-y-1.5">
+                    {recentProjects.map((project) => (
+                      <div
+                        key={project.slug}
+                        className="flex items-center justify-between gap-3 border-b border-white/5 pb-1.5 text-sm last:border-0"
+                      >
+                        <span className="truncate text-white/85">
+                          {project.title}
+                        </span>
+                        <span className="shrink-0 text-[11px] uppercase tracking-wider text-white/35">
+                          {project.year}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-end justify-between pt-1">
+                    <div>
+                      <h3 className="text-xl">Recent Work</h3>
+                      <span className="text-sm text-white/50">
+                        Crafting Excellence
+                      </span>
+                    </div>
+                    <span className="text-primary transition-transform group-hover/work:translate-x-1">
+                      <RightArrow />
+                    </span>
+                  </div>
+                </div>
               </div>
+            </TransitionLink>
+          </Column>
+          <Column className="relative min-h-[360px] md:col-span-6 lg:col-span-6 lg:min-h-0">
+            <div className="relative h-full w-full">
+              <div className="flex items-center w-full flex-col pt-20">
+                <span>Based In India</span>
+                <span className="italic flex gap-2 items-center">
+                  <LightningIcon /> Available Worldwide
+                </span>
+              </div>
+              <Globe className="top-25" />
             </div>
-          </TransitionLink>
-        </Column>
-        <Column className="relative min-h-[360px] md:col-span-6 lg:col-span-6 lg:min-h-0">
-          <div className="relative h-full w-full">
-            <div className="flex items-center w-full flex-col pt-20">
-              <span>Based In India</span>
-              <span className="italic flex gap-2 items-center">
-                <LightningIcon /> Available Worldwide
-              </span>
-            </div>
-            <Globe className="top-25" />
-          </div>
-        </Column>
+          </Column>
         </div>
       </ScrollReveal>
     </Container>
@@ -232,6 +232,7 @@ const Column = ({
     </div>
   );
 };
+
 
 const ListLine = ({ text }: { text: string }) => {
   return (
