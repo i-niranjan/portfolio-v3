@@ -1,35 +1,63 @@
-## Things to get done
+<div align="center">
 
-Create a folder structure
+```
+███╗   ██╗██╗██████╗  █████╗ ███╗   ██╗     ██╗ █████╗ ███╗   ██╗
+████╗  ██║██║██╔══██╗██╔══██╗████╗  ██║     ██║██╔══██╗████╗  ██║
+██╔██╗ ██║██║██████╔╝███████║██╔██╗ ██║     ██║███████║██╔██╗ ██║
+██║╚██╗██║██║██╔══██╗██╔══██║██║╚██╗██║██   ██║██╔══██║██║╚██╗██║
+██║ ╚████║██║██║  ██║██║  ██║██║ ╚████║╚█████╔╝██║  ██║██║ ╚████║
+╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
+```
 
-- Components
-  - Header.tsx
-  - HeroSection.tsx
-  - BentoGrid.tsx
-  - Footer.tsx
+**portfolio v3**
 
-Confirmed working — two captures show beams at different positions/columns:
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript)](https://typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
 
-- Frame 1: faint streak on the far-left line near the terminal box
-- Frame 2: streak on the right side around x≈830
+</div>
 
-The asymmetric timing is doing its job — different lines light up at
-different moments, never in sync. Effect is subtle (low-opacity gradient
-with a small glow) and won't pull focus from the hero content.
+---
 
-Want me to dial it up/down? Easy levers in
-app/components/DoubleLineGridOverlay/index.tsx:
+## who am i
 
-- More frequent: lower the 2.5, 7 delay range (e.g., 1, 4)
-- Brighter: raise opacity range from 0.4, 0.75 → 0.6, 0.9 or bump boxShadow
-  blur from 6px
-- Longer streak: change h-24 to h-32/h-40
-- Slower fall: raise the 3.5, 7 travel range
+Hey, I'm **Niranjan Chaudhari** — A Full Stack Engineer
 
-✻ Churned for 2m 32s
+This is the third iteration of my personal site. Each version has been a ground-up rebuild because I can't stop tinkering. No regrets.
 
-❯ i want you to check the whole frontpage what are the ui wise improvements
+---
 
-● I'll audit the front page across viewports and the full scroll, then
-produce a list. Let me capture what's there.
-produce a list. Let me capture what's there.
+## reach out
+
+| channel     | link                                                                |
+| ----------- | ------------------------------------------------------------------- |
+| mail        | [iniranjanchaudhari@gmail.com](mailto:iniranjanchaudhari@gmail.com) |
+| 30-min call | [cal.com/iniranjan/30min](https://cal.com/iniranjan/30min)          |
+
+---
+
+## what's inside
+
+```
+portfolio-v3/
+├── app/              # Next.js App Router pages & layouts
+├── components/       # Reusable UI components
+├── content/          # MDX content (writing, projects)
+├── data/             # Static data layer
+├── lib/              # Utilities and helpers
+└── public/           # Static assets
+```
+
+---
+
+## running locally
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Open [localhost:3000](http://localhost:3000). That's it.
+
+---
