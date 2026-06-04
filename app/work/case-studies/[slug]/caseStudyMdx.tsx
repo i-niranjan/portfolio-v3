@@ -87,7 +87,7 @@ function HeadingThree({ children }: ComponentPropsWithoutRef<"h3">) {
 function Paragraph({ children }: ComponentPropsWithoutRef<"p">) {
   return (
     <RevealBlock>
-      <p className="mb-4 text-[15px] leading-[1.85] font-normal text-white/52">
+      <p className="mb-4 text-base leading-[1.85] font-normal text-white/52">
         {children}
       </p>
     </RevealBlock>
@@ -101,7 +101,7 @@ function UnorderedList({ children }: ComponentPropsWithoutRef<"ul">) {
 function ListItem({ children }: ComponentPropsWithoutRef<"li">) {
   return (
     <RevealBlock>
-      <li className="flex gap-3 text-[15px] leading-[1.75] text-white/50">
+      <li className="flex gap-3 text-base leading-[1.75] text-white/50">
         <span className="mt-[9px] block h-[3px] w-[3px] flex-shrink-0 rounded-full bg-white/20" />
         <span>{children}</span>
       </li>

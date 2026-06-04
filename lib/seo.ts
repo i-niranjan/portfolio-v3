@@ -49,6 +49,19 @@ export function websiteJsonLd() {
   } as const;
 }
 
+export function breadcrumbJsonLd(crumbs: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.name,
+      item: absoluteUrl(crumb.path),
+    })),
+  };
+}
+
 interface CaseStudyJsonLdInput {
   slug: string;
   title: string;

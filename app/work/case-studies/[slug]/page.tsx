@@ -1,7 +1,7 @@
 import { CaseStudyPageClient } from "@/app/work/case-studies/[slug]/CaseStudyPageClient";
 import { JsonLd } from "@/app/components/JsonLd";
 import { getAllCaseStudies, getCaseStudyBySlug } from "@/content/case-studies";
-import { absoluteUrl, caseStudyJsonLd, siteConfig } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, caseStudyJsonLd, siteConfig } from "@/lib/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -78,6 +78,12 @@ export default async function CaseStudyPage({ params }: PageProps) {
   }
 
   const { metadata } = caseStudy;
+  const breadcrumb = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Work", path: "/work" },
+    { name: metadata.title, path: `/work/case-studies/${metadata.slug}` },
+  ]);
+
   const jsonLd = caseStudyJsonLd({
     slug: metadata.slug,
     title: metadata.title,
@@ -91,7 +97,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   return (
     <>
-      <JsonLd data={jsonLd} />
+      <JsonLd data={[breadcrumb, jsonLd]} />
       <CaseStudyPageClient slug={slug} metadata={caseStudy.metadata} />
     </>
   );

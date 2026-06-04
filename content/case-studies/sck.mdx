@@ -1,57 +1,67 @@
 export const metadata = {
-  slug: "sck",
+  slug: "sourcecatch-konnect",
   order: 3,
-  title: "SCK",
+  title: "SourceCatch Konnect",
   subtitle:
-    "Designing a storefront that matched the sharpness of the product behind it.",
+    "Building the digital home of a branding, marketing, and development agency from the ground up.",
   description:
-    "A bold e-commerce storefront engineered for conversion, built around visual storytelling and a frictionless checkout flow.",
-  client: "SCK",
+    "A brand new agency website for SourceCatch Konnect, built with Next.js, Tailwind, and GSAP — featuring complex parallax animations and a significant performance leap over the previous WordPress site.",
+  client: "SourceCatch Konnect",
   year: "2025",
-  role: "E-Commerce Design · Conversion UX",
-  tags: ["E-Commerce", "Conversion", "Visual Design"],
+  role: "Frontend Development",
+  tags: ["Agency", "Web Development", "Animation", "Next.js"],
   heroImage: "/work/sck.png",
   coverImage: "/work/sck.png",
   stats: [
-    { label: "Conversion lift", value: "+38%" },
-    { label: "Checkout steps", value: "3" },
-    { label: "Launch window", value: "5 wk" },
-    { label: "Primary surface", value: "Web" },
+    { label: "Lighthouse Performance", value: "87" },
+    { label: "SEO / Accessibility", value: "100" },
+    { label: "Launch window", value: "4 wk" },
+    { label: "Stack", value: "Next.js" },
   ],
   review: {
-    initials: "KP",
-    name: "Kabir Patel",
-    role: "Head of Growth, SCK",
-    text: "Conversion jumped 38% in the first month. The storefront finally matches the quality of our product.",
+    initials: "PK",
+    name: "Pranav Kothari",
+    role: "Managing Director, SourceCatch Konnect",
+    text: "The new website completely transformed how we present our work. The animations on the work page are exactly the kind of craft we want clients to associate with us.",
   },
 };
 
 ## Overview
 
-SCK needed a storefront refresh that could drive stronger conversion while preserving the visual confidence of the brand. The original experience undersold product quality and introduced unnecessary friction before checkout.
+SourceCatch Konnect is a branding, marketing, and development agency. The company had no dedicated web presence that matched the quality of work they delivered for clients. The goal was to build one from scratch — something that could showcase the agency's portfolio, communicate its capabilities, and start generating inbound client and career inquiries.
 
-## Problem
+The website was designed collaboratively with the team and developed entirely by me over a four-week sprint.
 
-Browsing felt visually inconsistent, product pages did too little to build confidence, and the handoff into checkout introduced hesitation at the exact moment users were ready to convert.
+## The Challenge
 
-### Core issues uncovered
+The previous WordPress site was slow, visually dated, and couldn't express the agency's actual level of craft. It wasn't generating meaningful leads and didn't reflect the work the team was producing.
 
-- The storefront lacked a clear narrative between discovery and purchase.
-- Product value was obvious in the physical offering but not in the digital presentation.
-- Checkout momentum dropped when users hit unclear steps or redundant decisions.
+### What the new site needed to do
 
-## Approach
+- Present the agency's work in a way that immediately communicated quality.
+- Perform significantly better than the WordPress predecessor on speed and SEO.
+- Handle complex, expressive animations without sacrificing stability or load time.
 
-The redesign tightened the storefront hierarchy, gave product media more authority, and simplified purchase decision points. Every primary action was reframed around momentum, with stronger emphasis on product trust and fewer points of hesitation.
+## Development Approach
+
+The stack was chosen for performance and creative flexibility: Next.js for static generation and routing, Tailwind for rapid UI work, and GSAP paired with Lenis for scroll-driven animation.
+
+The most technically demanding part of the build was the work page. It features a horizontal scroll layout where each section and component moves independently — a parallax system built with GSAP and Lenis that required careful orchestration to keep motion smooth and intentional rather than chaotic.
+
+### Key technical decisions
+
+- Lenis smooth scroll integrated with GSAP ScrollTrigger for frame-accurate parallax control.
+- Horizontal scroll on the work page with per-component motion paths, not a single uniform scroll offset.
+- Static generation throughout to keep load times fast and SEO clean.
 
 <CaseStudyImage
-  src="/work/sck-website.gif"
-  alt="SCK storefront preview"
-  caption="A sharper storefront rhythm built around product confidence and faster purchase flow"
+  src="/work/sck.png"
+  alt="SourceCatch Konnect website"
+  caption="The work page — horizontal scroll with independent component-level parallax"
 />
 
 ## Outcome
 
-The updated storefront delivered a stronger visual story and a cleaner conversion path, leading to measurable performance gains shortly after launch.
+The site launched in four weeks and immediately outperformed the previous WordPress site across every measurable dimension. Lighthouse performance hit 87, with SEO, Accessibility, and Best Practices all scoring 100. Contact and career form submissions increased noticeably over the old site, and the work page became a direct demonstration of the agency's development capability to prospective clients.
 
-> "Conversion jumped 38% in the first month. The storefront finally matches the quality of our product." — Kabir Patel, Head of Growth, SCK
+> "The new website completely transformed how we present our work. The animations on the work page are exactly the kind of craft we want clients to associate with us." — Pranav Kothari, Managing Director, SourceCatch Konnect

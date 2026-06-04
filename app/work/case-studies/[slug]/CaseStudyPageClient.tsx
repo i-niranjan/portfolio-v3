@@ -16,7 +16,7 @@ interface CaseStudyPageClientProps {
   metadata: CaseStudyMetadata;
 }
 
-const SHOW_CASE_STUDY_DRAFT_NOTICE = true;
+const SHOW_CASE_STUDY_DRAFT_NOTICE = false;
 
 function StatsRow({ stats }: { stats: CaseStudyStat[] }) {
   const ref = useRef<HTMLDivElement>(null);
