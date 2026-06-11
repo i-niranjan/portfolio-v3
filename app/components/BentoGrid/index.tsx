@@ -2,21 +2,25 @@ import Container from "@/components/container";
 import React from "react";
 import FirstRow from "./FirstRow";
 import TerminalReadout from "./TerminalReadout";
-import { ArrowRight, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { Globe } from "@/components/ui/globe";
-import TransitionLink from "@/app/components/TransitionLink";
 import { getProjectCards } from "@/content/case-studies";
 import CardSpotlight from "@/app/components/effects/CardSpotlight";
-import ScrollReveal from "@/app/components/effects/ScrollReveal";
+import BentoReveal from "./BentoReveal";
+import PortraitDissolve from "./PortraitDissolve";
+import ExploringList from "./ExploringList";
+import ScrambleLabel from "./ScrambleLabel";
+import FloatingSprite from "./FloatingSprite";
+import RecentWorkCard from "./RecentWorkCard";
 
 export default function BentoGrid() {
   const recentProjects = getProjectCards().slice(0, 3);
   return (
     <Container>
-      <ScrollReveal>
+      <BentoReveal>
         <div
           id="about"
           className="grid min-h-screen scroll-mt-32 grid-cols-1 gap-x-2.5 gap-y-5 py-16 md:grid-cols-6 lg:grid-cols-12 lg:grid-rows-[auto_1fr_1fr] lg:py-20"
@@ -28,8 +32,9 @@ export default function BentoGrid() {
           <Column
             bgVariant="plainBlack"
             tilt={4}
-            className="min-h-[420px] bg-[url(/assets/portrait-image.jpg)] bg-cover bg-center md:col-span-3 lg:col-span-4 lg:min-h-0"
+            className="min-h-[420px] md:col-span-3 lg:col-span-4 lg:min-h-0"
           >
+            <PortraitDissolve src="/assets/portrait-image.jpg" />
             <div className="flex h-full w-full items-end p-6">
               <div
                 className=" z-10
@@ -66,21 +71,19 @@ export default function BentoGrid() {
             </div>
           </Column>
           <Column className="relative min-h-[300px] p-6 md:col-span-6 lg:col-span-3 lg:min-h-0">
-            <Image
-              className="absolute right-0 top-0 z-10 h-auto w-36 animate-pulse sm:w-[200px]"
-              src={"/assets/web-asset.png"}
-              height={200}
-              width={200}
-              alt="web asset"
-            />
+            <FloatingSprite className="absolute right-0 top-0 z-10 w-36 sm:w-[200px]">
+              <Image
+                className="h-auto w-full"
+                src={"/assets/web-asset.png"}
+                height={200}
+                width={200}
+                alt="web asset"
+              />
+            </FloatingSprite>
             <div className="flex h-full w-full flex-col justify-end gap-13">
-              <div className="space-y-4">
-                {["System Design", "DevOps & Tools", "Performance Tuning"].map(
-                  (i, index) => {
-                    return <ListLine text={i} key={index} />;
-                  },
-                )}
-              </div>
+              <ExploringList
+                items={["System Design", "DevOps & Tools", "Performance Tuning"]}
+              />
               <span className="text-xl">Currently Exploring</span>
             </div>
           </Column>
@@ -92,7 +95,10 @@ export default function BentoGrid() {
                   <NumberTicker value={2} className="text-5xl font-bold" />
                   <Plus className="size-8" />
                 </div>
-                <span className=" font-semibold">Years of Experience</span>
+                <ScrambleLabel
+                  text="Years of Experience"
+                  className="font-semibold"
+                />
               </div>
             </Column>
             <Column bgVariant="plainBlack" className="h-30">
@@ -101,7 +107,10 @@ export default function BentoGrid() {
                   <NumberTicker value={8} className="text-5xl font-bold" />{" "}
                   <Plus className="size-8" />
                 </div>
-                <span className=" font-semibold">Projects Shipped</span>
+                <ScrambleLabel
+                  text="Projects Shipped"
+                  className="font-semibold"
+                />
               </div>
             </Column>
             <div className="space-y-2">
@@ -129,62 +138,7 @@ export default function BentoGrid() {
             tilt={3}
             className="group/work min-h-[320px] md:col-span-4 lg:col-span-4 lg:min-h-0"
           >
-            <TransitionLink
-              href="/work"
-              className="relative block h-full w-full overflow-hidden"
-            >
-              <div
-                className="absolute inset-0 bg-[url('/assets/brand-slide/indinite-slide.png')] bg-cover transition-transform duration-700 group-hover/work:scale-105"
-                aria-hidden
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/0"
-                aria-hidden
-              />
-
-              <div className="relative flex h-full w-full flex-col justify-between p-5">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(173,145,234,0.8)]" />
-                    <span className="text-[10px] uppercase tracking-[0.28em] text-white/50">
-                      Selected
-                    </span>
-                  </div>
-                  <span className="text-[10px] uppercase tracking-[0.28em] text-white/40 transition-colors group-hover/work:text-primary">
-                    View All →
-                  </span>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="space-y-1.5">
-                    {recentProjects.map((project) => (
-                      <div
-                        key={project.slug}
-                        className="flex items-center justify-between gap-3 border-b border-white/5 pb-1.5 text-sm last:border-0"
-                      >
-                        <span className="truncate text-white/85">
-                          {project.title}
-                        </span>
-                        <span className="shrink-0 text-[11px] uppercase tracking-wider text-white/35">
-                          {project.year}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex items-end justify-between pt-1">
-                    <div>
-                      <h3 className="text-xl">Recent Work</h3>
-                      <span className="text-sm text-white/50">
-                        Crafting Excellence
-                      </span>
-                    </div>
-                    <span className="text-primary transition-transform group-hover/work:translate-x-1">
-                      <RightArrow />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </TransitionLink>
+            <RecentWorkCard projects={recentProjects} />
           </Column>
           <Column className="relative min-h-[360px] md:col-span-6 lg:col-span-6 lg:min-h-0">
             <div className="relative h-full w-full">
@@ -198,7 +152,7 @@ export default function BentoGrid() {
             </div>
           </Column>
         </div>
-      </ScrollReveal>
+      </BentoReveal>
     </Container>
   );
 }
@@ -229,18 +183,30 @@ const Column = ({
     >
       {spotlight && <CardSpotlight tilt={tilt} />}
       {children}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-30 h-full w-full"
+      >
+        <rect
+          data-border-draw
+          x="0.5"
+          y="0.5"
+          width="99%"
+          height="99%"
+          rx="11"
+          pathLength={1}
+          fill="none"
+          stroke="#ad91ea"
+          strokeWidth="1"
+          strokeDasharray="1"
+          strokeDashoffset="1"
+          opacity="0"
+        />
+      </svg>
     </div>
   );
 };
 
-
-const ListLine = ({ text }: { text: string }) => {
-  return (
-    <span className="flex  gap-2  items-center text text-white/90 text-xs ">
-      <ArrowRight size={14} /> {text}
-    </span>
-  );
-};
 
 const BookIcon = () => (
   <svg
@@ -566,29 +532,6 @@ const ArrowIcon = () => (
       fill="#AD91EA"
     />
     <path d="M1.52 6.1001H0V7.6201H1.52V6.1001Z" fill="#AD91EA" />
-  </svg>
-);
-
-const RightArrow = () => (
-  <svg
-    width="19"
-    height="19"
-    viewBox="0 0 19 19"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M8.98179 0L6.74006 2.24173L11.3363 6.83792L9.07978 9.0944L11.3703 11.385L6.88689 15.8684L9.19252 18.174L18.1742 9.19239L8.98179 0Z"
-      fill="#AD91EA"
-    />
-    <path
-      d="M9.07998 9.09445L6.77434 6.78882L4.53262 9.03055L6.83825 11.3362L9.07998 9.09445Z"
-      fill="#AD91EA"
-    />
-    <path
-      d="M4.53254 9.0308L2.24198 6.74023L0.000252201 8.98196L2.29082 11.2725L4.53254 9.0308Z"
-      fill="#AD91EA"
-    />
   </svg>
 );
 

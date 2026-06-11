@@ -27,6 +27,8 @@ export interface CaseStudyMetadata {
   coverImage: string;
   stats: CaseStudyStat[];
   review: ProjectReview;
+  /** When true, the full write-up isn't ready yet — show the "still writing" notice. */
+  draft?: boolean;
 }
 
 export interface CaseStudyEntry {

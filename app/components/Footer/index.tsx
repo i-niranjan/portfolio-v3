@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 import MagneticHover from "@/app/components/effects/MagneticHover";
+import ScrambleHover from "@/app/components/effects/ScrambleHover";
+import FooterCta from "./FooterCta";
 
 export default function Footer() {
   const SocialLinks = [
@@ -37,7 +39,9 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:px-6 md:grid-cols-12 md:gap-x-6 md:gap-y-10 md:py-16 lg:px-0">
+    <footer className="w-full">
+      <FooterCta />
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:px-6 md:grid-cols-12 md:gap-x-6 md:gap-y-10 md:py-16 lg:px-0">
       <div className="relative min-h-64 bg-[url('/assets/chrome51.png')] bg-contain bg-no-repeat md:col-span-4 md:ml-4 md:min-h-0">
         <div className="absolute left-0 top-0 h-full w-full max-w-100 bg-linear-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-black/0"></div>
       </div>
@@ -95,7 +99,7 @@ export default function Footer() {
               <MailIcon />
             </span>
             <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-primary">
-              iniranjanchaudhari@gmail.com
+              <ScrambleHover text="iniranjanchaudhari@gmail.com" />
             </span>
           </Link>
           <span className="text-xs text-white/35">
@@ -114,6 +118,17 @@ export default function Footer() {
               Schedule A Call
             </Button>
           </CalButton>
+        </div>
+      </div>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-2">
+          <span>© {new Date().getFullYear()} Niranjan Chaudhari</span>
+          <span>Pune, IN — Available Worldwide</span>
+          <span className="text-primary/40">
+            Built with Next.js + GSAP + Three.js
+          </span>
         </div>
       </div>
     </footer>

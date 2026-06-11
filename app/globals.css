@@ -284,3 +284,16 @@
     animation-name: none;
   }
 }
+
+/* While RouteWipe covers a navigation, the browser's view-transition
+   snapshot layer paints in the top layer — above the wipe overlay —
+   which made the new page flash mid-wipe. Hide it entirely; the wipe
+   is the only transition for these navigations. */
+html.route-wiping::view-transition {
+  display: none !important;
+}
+
+html.route-wiping::view-transition-old(route-content),
+html.route-wiping::view-transition-new(route-content) {
+  animation: none !important;
+}

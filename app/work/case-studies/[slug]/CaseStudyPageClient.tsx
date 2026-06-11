@@ -16,8 +16,6 @@ interface CaseStudyPageClientProps {
   metadata: CaseStudyMetadata;
 }
 
-const SHOW_CASE_STUDY_DRAFT_NOTICE = false;
-
 function StatsRow({ stats }: { stats: CaseStudyStat[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-5% 0px" });
@@ -210,9 +208,17 @@ function DraftCaseStudyNotice({ metadata }: { metadata: CaseStudyMetadata }) {
       transition={{ delay: 0.18, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden rounded-[4px] border border-white/7 bg-white/[0.025] px-5 py-8  backdrop-blur-[20px] sm:px-7 sm:py-10"
     >
+      <p className="mb-4 flex items-center gap-2 font-commit text-[10px] uppercase tracking-[0.12em] text-white/35">
+        <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#9b6dff]" />
+        Work in progress
+      </p>
       <h2 className="mb-4 max-w-155 text-[clamp(1.6rem,4vw,2.65rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-white/92">
-        Still Working on the full {metadata.title} case study...
+        Still writing the full {metadata.title} case study...
       </h2>
+      <p className="max-w-115 text-[15px] leading-[1.65] text-white/38">
+        I&apos;m putting the detailed write-up together. In the meantime, here&apos;s
+        the short version: {metadata.subtitle}
+      </p>
     </motion.section>
   );
 }
@@ -285,6 +291,8 @@ export function CaseStudyPageClient({
     return null;
   }
 
+  const isDraft = metadata.draft === true;
+
   return (
     <div className="min-h-screen bg-[#080808] font-['Helvetica_Neue',Helvetica,Arial,sans-serif] text-white">
       {/* <TopNav
@@ -299,7 +307,7 @@ export function CaseStudyPageClient({
         </div>
 
         <div className="mx-auto flex max-w-[1060px] flex-col gap-8 px-4 pb-20 md:px-10 lg:flex-row lg:items-start lg:gap-[60px] lg:pb-[120px]">
-          {!SHOW_CASE_STUDY_DRAFT_NOTICE ? (
+          {!isDraft ? (
             <Sidebar
               metadata={metadata}
               sections={sections}
@@ -309,10 +317,10 @@ export function CaseStudyPageClient({
           ) : null}
 
           <main className="min-w-0 flex-1">
-            <StatsRow stats={metadata.stats} />
+            {!isDraft ? <StatsRow stats={metadata.stats} /> : null}
 
             <div ref={contentRef} className="min-w-0">
-              {SHOW_CASE_STUDY_DRAFT_NOTICE ? (
+              {isDraft ? (
                 <DraftCaseStudyNotice metadata={metadata} />
               ) : (
                 <Content components={caseStudyMDXComponents} />

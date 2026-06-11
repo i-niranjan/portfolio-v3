@@ -1,75 +1,75 @@
 export const metadata = {
   slug: "bms-platform",
   order: 1,
-  title: "BMS Platform",
+  title: "Book My Services",
   subtitle:
-    "Reimagining how enterprise teams interact with infrastructure.",
+    "A home services marketplace built for scale.",
   description:
-    "A comprehensive building management system with real-time monitoring, analytics and smart automation built for enterprise scale.",
-  client: "BuildCore",
-  year: "2025",
-  role: "Product Design · UX / UI",
-  tags: ["Enterprise", "UX / UI", "Dashboard"],
+    "A full-stack home services marketplace platform — think UrbanClap for the UK — built on a TypeScript monorepo with separate apps for customers, technicians, and admins.",
+  client: "Book My Services",
+  year: "2026",
+  role: "Technical Lead · Full Stack",
+  tags: ["Marketplace", "Full Stack", "Architecture", "TypeScript"],
   heroImage: "/work/bms_2.png",
   coverImage: "/work/bms_2.png",
   stats: [
-    { label: "Reduction in task time", value: "—62%" },
-    { label: "User satisfaction", value: "94%" },
-    { label: "Screens designed", value: "140+" },
-    { label: "Duration", value: "6 mo" },
+    { label: "Team size", value: "7" },
+    { label: "Duration", value: "3 mo" },
+    { label: "Applications", value: "3" },
+    { label: "Stack", value: "Next.js" },
   ],
   review: {
-    initials: "AR",
-    name: "Arjun Rao",
-    role: "CTO, BuildCore",
-    text: "Transformed how our team interacts with infrastructure. The clarity of the interface made adoption instant.",
+    initials: "AK",
+    name: "Product Owner",
+    role: "Book My Services",
+    text: "The architecture decisions made early on paid off throughout the entire build. The team delivered a platform we're genuinely proud to launch.",
   },
 };
 
 ## Overview
 
-BuildCore operates a portfolio of commercial and industrial properties across 14 cities. Their existing BMS was fragmented, with data split across multiple tools and critical alerts buried in inboxes instead of being surfaced in the flow of work.
+Book My Services is a home services marketplace platform for the UK market — connecting homeowners with vetted cleaners and service technicians. The platform needed to support three distinct user types: customers booking services, technicians managing their jobs in the field, and admins overseeing the entire operation.
 
-The brief was to design a unified monitoring platform that could scale across the full estate while keeping the interface legible enough for engineers working under pressure in control-room conditions.
+I was brought in as technical lead and architect, responsible for the full-stack direction across all three applications. The team of seven delivered the platform in three months.
 
-> "Transformed how our team interacts with infrastructure. The clarity of the interface made adoption instant." — Arjun Rao, CTO BuildCore
+## The Challenge
 
-## The Problem
+Building a marketplace means building multiple products simultaneously — each with its own interaction model, performance requirements, and data needs — while keeping shared logic consistent and the codebase maintainable as the team scaled.
 
-After a week of shadowing facility teams, three core issues repeated in every workflow: alert fatigue from noisy notifications, high cognitive load when switching between buildings, and no useful history at the moment of diagnosis.
+### Core problems to solve
 
-### Key findings from research
+- Three separate applications needed to share types, validation logic, and UI components without duplicating code or drifting out of sync.
+- Build times and developer experience had to stay fast across a growing monorepo as the team worked in parallel.
+- Database schema changes needed to be coordinated carefully — a migration that broke one application could take down the entire platform.
 
-- Engineers missed roughly one in five critical alerts because low-priority noise drowned them out.
-- Average time to diagnose a fault was 23 minutes, with a target of under 5 minutes.
-- Reporting depended on manual exports and cost each manager multiple hours every week.
+## Architecture Approach
 
-## Design Approach
+The foundation was a Turborepo monorepo, which gave the team a single repository for all three applications with shared internal packages for types, validators, and UI components. Turbo's build pipeline handled caching and parallel execution, keeping CI fast and local builds predictable.
 
-The product structure centered on three levels of context: Estate, Building, and Zone. That hierarchy stayed visible at all times so engineers could drill down without losing where they were inside the system.
+The backend was built with Express and PostgreSQL, with Prisma managing the data layer. Schema migrations were treated as a first-class concern — every change was reviewed for cross-application impact before being applied.
 
-Alerts were redesigned as a triage surface instead of a flat list. Visual priority, acknowledgement, escalation, and snooze actions all stayed close to the signal so operators could act without bouncing between screens.
+Redis and BullMQ handled background job processing for things like booking confirmations, notifications, and scheduled tasks. Stripe powered the payment layer end to end.
 
-### System architecture principles
+### Key architectural decisions
 
-- Context-first navigation that always reveals where a user is in the estate hierarchy.
-- Ambient data density that keeps important metrics visible without crowding action surfaces.
-- Interruption design that reserves heavyweight treatments for critical failures and keeps warnings inline.
-
-## Execution
-
-The UI system was built around a dark-first token set and tested for low-light environments, since many of the operational spaces already worked in dimmer ambient lighting. More than 140 screens were produced across desktop and large-format display views.
-
-Motion was used to communicate system state rather than decoration. Coordinated layout transitions and staggered data reveals helped operators understand what changed between contexts without needing to relearn the screen.
+- Shared TypeScript types and Zod validators in a common internal package, consumed by both frontend and backend — a single source of truth that eliminated a whole class of runtime bugs.
+- Turbo's remote caching and task graph kept build times from growing as the repo expanded across three applications and multiple shared packages.
+- Prisma migrations versioned and reviewed collaboratively, with a clear process for rolling back safely if a schema change had unintended effects.
 
 <CaseStudyImage
   src="/work/bms_2.png"
-  alt="BMS dashboard overview"
-  caption="Dashboard overview — estate-level monitoring surface"
+  alt="Book My Services platform"
+  caption="The customer-facing booking experience — one of three applications in the platform"
 />
+
+## Execution
+
+The three applications served very different users. The customer-facing web app focused on a fast, confident booking journey. The technician application was optimized for field use — quick to load, easy to action on mobile. The admin dashboard gave the operations team full visibility and control over the platform.
+
+Leading a team of seven meant decisions needed to be clear and documented. Architecture choices were written up so engineers could work autonomously within agreed boundaries, and code reviews were used to enforce the shared conventions that kept the monorepo coherent.
 
 ## Outcome
 
-After rollout at the first pilot sites, fault diagnosis time dropped from 23 minutes to under 8. Alert acknowledgement rates climbed to 97%, and the reporting workflow removed around three hours of weekly manual work per manager.
+The platform launched in 2026 and is live at [bookmyservices.co.uk](https://bookmyservices.co.uk). The monorepo architecture delivered what it was designed to — a codebase where three applications could evolve in parallel without stepping on each other, and where shared logic stayed consistent across the entire product.
 
-The client expanded the rollout plan across the full portfolio and used the new platform as the foundation for future mobile operations tooling.
+> "The architecture decisions made early on paid off throughout the entire build. The team delivered a platform we're genuinely proud to launch." — Product Owner, Book My Services

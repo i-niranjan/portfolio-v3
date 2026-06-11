@@ -44,6 +44,8 @@ export function Globe({
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const phiRef = useRef(0);
+  const speedRef = useRef(0.005);
+  const hoveringRef = useRef(false);
   const widthRef = useRef(0);
   const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
@@ -85,7 +87,10 @@ export function Globe({
       width: widthRef.current * 2,
       height: widthRef.current * 2,
       onRender: (state) => {
-        if (!pointerInteracting.current) phiRef.current += 0.005;
+        // Spin eases faster while hovered, settles back when the cursor leaves
+        const targetSpeed = hoveringRef.current ? 0.014 : 0.005;
+        speedRef.current += (targetSpeed - speedRef.current) * 0.04;
+        if (!pointerInteracting.current) phiRef.current += speedRef.current;
         state.phi = phiRef.current + rs.get();
         state.width = widthRef.current * 2;
         state.height = widthRef.current * 2;
@@ -120,7 +125,11 @@ export function Globe({
           updatePointerInteraction(e.clientX);
         }}
         onPointerUp={() => updatePointerInteraction(null)}
-        onPointerOut={() => updatePointerInteraction(null)}
+        onPointerEnter={() => (hoveringRef.current = true)}
+        onPointerOut={() => {
+          hoveringRef.current = false;
+          updatePointerInteraction(null);
+        }}
         onMouseMove={(e) => updateMovement(e.clientX)}
         onTouchMove={(e) =>
           e.touches[0] && updateMovement(e.touches[0].clientX)

@@ -7,6 +7,8 @@ import "lenis/dist/lenis.css";
 import "@/css/glass.css";
 import LenisProvider from "@/app/components/lenis-provider";
 import RouteTransitionShell from "@/app/components/RouteTransitionShell";
+import RouteWipe from "@/app/components/RouteWipe";
+import BootScreen from "@/app/components/BootScreen";
 import { JsonLd } from "@/app/components/JsonLd";
 import { personJsonLd, siteConfig, websiteJsonLd } from "@/lib/seo";
 
@@ -83,6 +85,8 @@ export default function RootLayout({
           </main>
 
           <Footer />
+          <RouteWipe />
+          <BootScreen />
         </LenisProvider>
       </body>
     </html>

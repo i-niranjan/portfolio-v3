@@ -4,6 +4,8 @@ import ScheduleCallButton from "./ScheduleCallButton";
 import Container from "@/components/container";
 import TransitionLink from "@/app/components/TransitionLink";
 import MagneticHover from "@/app/components/effects/MagneticHover";
+import HeroBackdrop from "./HeroBackdrop";
+import HeroIntro from "./HeroIntro";
 
 export default function HeroSection() {
   return (
@@ -13,7 +15,7 @@ export default function HeroSection() {
         {/* <div className="pointer-events-none absolute inset-x-10 top-14 bottom-16 rounded-[2rem] border border-white" /> */}
         {/* <div className="pointer-events-none absolute inset-x-[4.5rem] top-[5.5rem] bottom-24 rounded-[1.75rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_22%,transparent_78%,rgba(255,255,255,0.02))]" /> */}
         <div className="pointer-events-none absolute inset-x-6 top-20 bottom-20 opacity-[0.12] grid-columns-bg md:inset-x-24 md:opacity-[0.18]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.9)_0.6px,transparent_0.6px)] [background-size:18px_18px] [mask-image:radial-gradient(circle_at_center,black_28%,transparent_82%)]" />
+        <HeroBackdrop />
 
         <div className="pointer-events-none absolute left-10 top-28 hidden h-8 w-8 sm:block">
           <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/12" />
@@ -23,11 +25,15 @@ export default function HeroSection() {
         <div className="pointer-events-none absolute bottom-28 left-12 hidden h-px w-16 bg-white/10 sm:block" />
         <div className="pointer-events-none absolute bottom-24 right-10 hidden h-10 w-10 border-r border-b border-white/10 sm:block" />
 
+        <HeroIntro>
         <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center py-24 md:py-28">
           <TerminalText />
 
           <div className="flex h-max w-full max-w-4xl flex-col items-center gap-7 md:gap-10">
-            <h1 className="text-center font-inter text-[2.45rem] font-light leading-[1.06] tracking-[-0.05em] text-white sm:text-6xl md:text-7xl lg:text-5xl">
+            <h1
+              data-hero-title
+              className="text-center font-inter text-[2.45rem] font-light leading-[1.06] tracking-[-0.05em] text-white sm:text-6xl md:text-7xl lg:text-5xl"
+            >
               I help founders turn product ideas into{" "}
               <span className="bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(173,145,234,0.78))] bg-clip-text text-transparent">
                 scalable, production-ready systems
@@ -35,12 +41,18 @@ export default function HeroSection() {
               .
             </h1>
 
-            <p className="max-w-2xl text-center text-sm font-normal leading-7 text-white sm:text-base sm:leading-normal">
+            <p
+              data-hero-fade
+              className="max-w-2xl text-center text-sm font-normal leading-7 text-white sm:text-base sm:leading-normal"
+            >
               Fast-moving products create technical problems nobody plans for. I
               enjoy figuring out the tradeoffs and making things work.{" "}
             </p>
 
-            <div className="flex flex-col items-center gap-4 pt-2 sm:flex-row sm:gap-5">
+            <div
+              data-hero-fade
+              className="flex flex-col items-center gap-4 pt-2 sm:flex-row sm:gap-5"
+            >
               <ScheduleCallButton />
               <MagneticHover strength={0.25}>
                 <TransitionLink
@@ -68,7 +80,10 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/35 md:flex">
+          <div
+            data-hero-fade
+            className="pointer-events-none absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/35 md:flex"
+          >
             <span className="text-[10px] uppercase tracking-[0.4em]">
               Scroll
             </span>
@@ -78,6 +93,7 @@ export default function HeroSection() {
             </span>
           </div>
         </div>
+        </HeroIntro>
       </section>
     </Container>
   );
